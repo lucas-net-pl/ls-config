@@ -1,0 +1,283 @@
+# Language en-GB translations for PACKAGE package.
+# Copyright (C) 2013 THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# Łukasz A. Grabowski <lucas@lucas.net.pl>, 2013.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-09-28 18:34+0200\n"
+"PO-Revision-Date: 2013-09-09 23:56+0200\n"
+"Last-Translator: Łukasz A. Grabowski <lucas@lucas.net.pl>\n"
+"Language-Team: Language en-GB\n"
+"Language: en-GB\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ls-config.c:45
+#, c-format
+msgid "Obsluga plikuow konfiguracyjnych\n"
+msgstr "Configuration file manipulation\n"
+
+#: ls-config.c:47
+#, c-format
+msgid "Skladnia: ls-config [OPCJA]\n"
+msgstr "Usage: ls-config [OPTION]\n"
+
+#: ls-config.c:48
+#, c-format
+msgid "Odczytuje i zapisuje dane z plikow konfiguracyjnych\n"
+msgstr "REading nand writeing data from configuration files\n"
+
+#: ls-config.c:49
+#, c-format
+msgid "w formacie libconfig9\n"
+msgstr "in libconfig9 format.\n"
+
+#: ls-config.c:51
+#, c-format
+msgid "UWAGA: niezbedne jest podanie pliku konfiguracyjnego!\n"
+msgstr "CAUTION: using without given config file are forbidden.!\n"
+
+#: ls-config.c:53
+#, c-format
+msgid "Dostepne opcje:\n"
+msgstr "Available options:\n"
+
+#: ls-config.c:54
+#, c-format
+msgid "   -f, --file=PLIK       Plik konfiguracyjny do obsluzenia\n"
+msgstr "   -f, --file=FILE       Configutation file to use\n"
+
+#: ls-config.c:56
+#, c-format
+msgid ""
+"   -s, --set=SCIEZKA     Ustawienie wartosci konfiguracyjnej o podanej "
+"sciezce\n"
+msgstr "   -s, --set=PATCH       Set configuration value of given path.\n"
+
+#: ls-config.c:57
+#, c-format
+msgid "   -d, --data=DANE       Wartosc do ustawienia (tylko z -s)\n"
+msgstr "   -d, --data=DATA       VAlue to set (only with -s)\n"
+
+#: ls-config.c:58
+#, c-format
+msgid "   -p, --type=TYP        Typ wartosci do ustawienia\n"
+msgstr "   -p, --type=TYPE       Variable type to set\n"
+
+#: ls-config.c:60
+#, c-format
+msgid ""
+"   -g, --get=SCIEZKA     Pobranie danych konfiguracyjnych o podanej sciezce\n"
+msgstr "   -g, --get=PATCH       Get variable of given path\n"
+
+#: ls-config.c:61
+#, c-format
+msgid "   -n, --names           Wypisz nazwy zmiennych\n"
+msgstr "   -n, --names           Print only variable name\n"
+
+#: ls-config.c:62
+#, c-format
+msgid "   -t, --types           Wypisz typy zmiennych\n"
+msgstr "   -t, --types           Print only variable types\n"
+
+#: ls-config.c:63
+#, c-format
+msgid "   -v, --values          Wypisz wartosci zmiennych\n"
+msgstr "   -v, --values          Print only variable values\n"
+
+#: ls-config.c:64
+#, c-format
+msgid "   -i, --indexes         Wypisz indeksy zmiennych\n"
+msgstr "   -i, --indexes           Print only variable index\n"
+
+#: ls-config.c:65
+#, c-format
+msgid ""
+"   -c, --count           Wypisz ilosc elementow (tylko: array, list, group)\n"
+msgstr ""
+"   -c, --count           Print elements count(only: array, list, group)\n"
+
+#: ls-config.c:66
+#, c-format
+msgid "   -b, --bool-string     Wypisz wartosci logiczne tekstowo\n"
+msgstr "   -b, --bool-string     Print bool variables as string\n"
+
+#: ls-config.c:68
+#, c-format
+msgid "   -q, --quiet           Ciche wyjscie do uzycia w skryptach\n"
+msgstr "   -q, --quiet           Quiet output to use in scripts\n"
+
+#: ls-config.c:69
+#, c-format
+msgid "   -h, --help            Wyswietla niniejszy opis\n"
+msgstr "   -h, --help            Print this message\n"
+
+#: ls-config.c:71
+#, c-format
+msgid "TYP:     typ zmiennej:\n"
+msgstr "TYPE:    variable type:\n"
+
+#: ls-config.c:72
+#, c-format
+msgid "         group  - grupa zmiennych\n"
+msgstr "         group  - group variable\n"
+
+#: ls-config.c:73
+#, c-format
+msgid "         array  - tablica zmiennych\n"
+msgstr "         array  - array of variables (sam scalar type)\n"
+
+#: ls-config.c:74
+#, c-format
+msgid "         list   - lista zmiennych\n"
+msgstr "         list   - list of variables\n"
+
+#: ls-config.c:75
+#, c-format
+msgid "         int    - liczba calkowita\n"
+msgstr "         int    - integer\n"
+
+#: ls-config.c:76
+#, c-format
+msgid "         int64  - liczba calkowita 64 bitowa \n"
+msgstr "         int64  - 64 bit integer \n"
+
+#: ls-config.c:77
+#, c-format
+msgid "         float  - liczba zmiennoprzecinkowa \n"
+msgstr "         float  - floating point variable \n"
+
+#: ls-config.c:78
+#, c-format
+msgid "         bool   - wartosc logiczna \n"
+msgstr "         bool   - boolean value \n"
+
+#: ls-config.c:79
+#, c-format
+msgid "         string - lancuch znakowy \n"
+msgstr "         string - characters string \n"
+
+#: ls-config.c:93 ls-config.c:112 ls-config.c:130 ls-config.c:147
+#, c-format
+msgid "BLAD! Bledny format danych.\n"
+msgstr "ERROR! Invalid data format.\n"
+
+#: ls-config.c:99 ls-config.c:117 ls-config.c:135 ls-config.c:152
+#: ls-config.c:284 ls-config.c:301 ls-config.c:361 ls-config.c:402
+#: ls-config.c:431 ls-config.c:455 ls-config.c:473 ls-config.c:491
+#: ls-config.c:509 ls-config.c:515 ls-config.c:528 ls-config.c:570
+#: ls-config.c:588 ls-config.c:642
+#, c-format
+msgid "BLAD! Nie udalo sie ustawic zmiennej.\n"
+msgstr "ERROR! variable set fail.\n"
+
+#: ls-config.c:222 ls-config.c:671 ls-config.c:733 ls-config.c:1156
+#, c-format
+msgid "BLAD! Nie mozna otworzyc pliku konfiguracyjnego.\n"
+msgstr "ERROR! can't open configuration file.\n"
+
+#: ls-config.c:227 ls-config.c:676
+#, c-format
+msgid "BLAD! Nie podano sciezki zmiennej.\n"
+msgstr "ERROR! variable path not given.\n"
+
+#: ls-config.c:232
+#, c-format
+msgid "BLAD! Nie podano wartosci zmiennej.\n"
+msgstr "ERROR! variable value not given.\n"
+
+#: ls-config.c:246
+#, c-format
+msgid "BLAD! Bledna sciezka zmiennej.\n"
+msgstr "ERROR! invalid variable path.\n"
+
+#: ls-config.c:252
+#, c-format
+msgid "BLAD! Nowa nazwe zmiennej mozna dodac tylko do grupy.\n"
+msgstr "ERROR! New variable name can be added only to group.\n"
+
+#: ls-config.c:257 ls-config.c:381 ls-config.c:543 ls-config.c:610
+#, c-format
+msgid "BLAD! Nie okreslono typu zmiennej.\n"
+msgstr "ERROR! variable type not given.\n"
+
+#: ls-config.c:278 ls-config.c:396 ls-config.c:564 ls-config.c:636
+#, c-format
+msgid "BLAD! Niedozwolony typ zmiennej.\n"
+msgstr "ERROR! Unknown variable type.\n"
+
+#: ls-config.c:319 ls-config.c:331 ls-config.c:343 ls-config.c:355
+#: ls-config.c:368 ls-config.c:449 ls-config.c:467 ls-config.c:485
+#: ls-config.c:503 ls-config.c:522
+#, c-format
+msgid "BLAD! Niezgodny typ zmiennej.\n"
+msgstr "ERROR! variable type missmash.\n"
+
+#: ls-config.c:602 ls-config.c:646
+#, c-format
+msgid "Dodano pozycje: %d\n"
+msgstr "Position: %d has been added.\n"
+
+#: ls-config.c:615
+#, c-format
+msgid "BLAD! Bledna nazwa zmiennej konfiguracyjnej.\n"
+msgstr "ERROR! invalid name of configuration variable.\n"
+
+#: ls-config.c:657 ls-config.c:706
+#, c-format
+msgid "BLAD! Zapisu pliku konfiguracyjnego.\n"
+msgstr "ERROR! writeing configuration file.\n"
+
+#: ls-config.c:682 ls-config.c:743
+#, c-format
+msgid "BLAD! Nie odnaleziono poszukiwanej konfiguracji.\n"
+msgstr "ERROR! searched configuration not found.\n"
+
+#: ls-config.c:688
+#, c-format
+msgid "BLAD! Nie mozna usunac glownego elementu.\n"
+msgstr "ERROR! root element cannot be removed.\n"
+
+#: ls-config.c:694
+#, c-format
+msgid "BLAD! Nie mozna znalezc elementu nadrzednego.\n"
+msgstr "ERROR! parent element cennot be found.\n"
+
+#: ls-config.c:700
+#, c-format
+msgid "BLAD! Nie udalo sie usunac elementu.\n"
+msgstr "ERROR! unsetting element fail.\n"
+
+#: ls-config.c:965
+#, c-format
+msgid "Nazwa zmiennej:   %s\n"
+msgstr "Variable name:  %s\n"
+
+#: ls-config.c:968
+#, c-format
+msgid "Typ zmiennej:     %s\n"
+msgstr "Variable type:  %s\n"
+
+#: ls-config.c:971
+#, c-format
+msgid "Wartosc zmiennej: %s\n"
+msgstr "Variable value: %s\n"
+
+#: ls-config.c:974
+#, c-format
+msgid "Index zmiennej:   %d\n"
+msgstr "Variable index: %d\n"
+
+#: ls-config.c:977
+#, c-format
+msgid "Ilosc zmiennych:  %d\n"
+msgstr "Count variable: %d\n"
+
+#: ls-config.c:1162
+#, c-format
+msgid "BLAD! Nie okreslono sciezki zmiennej.\n"
+msgstr "ERROR! variable path not found.\n"
