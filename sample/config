@@ -1,0 +1,13 @@
+grp : 
+{
+  value = 10;
+  name = "sample";
+};
+lst = ( 
+  {
+    name = "sample";
+  }, 
+  {
+    comment = "sample secong group";
+  } );
+info = "more info about types in libconfig9 documentations";

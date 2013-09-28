@@ -1,0 +1,23 @@
+#!/bin/bash
+
+#set app flag
+LS_EXEC=1
+
+#set configuration directory
+CFGD="./"
+
+#source bash library
+source ../lslib-core
+
+#path onlny for this sample
+PACD="../"
+LIBD=""
+#end path
+
+#read data from configuration file
+TEST=$(cfg_f_g "config" "info")
+
+#show data
+echo "$TEST"
+
+exit 0;
