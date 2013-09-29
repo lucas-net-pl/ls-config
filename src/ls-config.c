@@ -16,19 +16,22 @@
 #define PACKAGE    "LS bash config"
 #define VERSION    "0.0.1"
 
+// global flags
 struct flags {
-	int quiet;
-	int names;
-	int types;
-	int values;
+	int quiet; //quiet output
+	int names; //set for printout config variables names
+	int types; //set for printout config variables types
+	int values; //set for printout config variables values
 	int indexes;
 	int counter;
-	int unset;
-	int boolstring;
+	int unset; //unset valriable
+	int boolstring; //set for output bool variable (0|1) as test (false|true)
 	int mode;
 	int error;
 };
 
+//take valur from input and comvert it to int
+//TODO: Read long too
 int getNumber() {
   char buf[1000];
   int test,val;
@@ -41,45 +44,48 @@ int getNumber() {
   return (int) 0;
 }
 
+//printout help messsage
 void printHelp() {
-	printf(gettext("Obsluga plikuow konfiguracyjnych\n"));
+	printf(gettext("Configuration file handling\n"));
 	printf("\n");
-	printf(gettext("Skladnia: ls-config [OPCJA]\n"));
-	printf(gettext("Odczytuje i zapisuje dane z plikow konfiguracyjnych\n"));
-	printf(gettext("w formacie libconfig9\n"));
+	printf(gettext("Usage: ls-config [OPTION]\n"));
+	printf(gettext("Reading and writening data from configuration files\n"));
+	printf(gettext("in libconfig9 format.\n"));
 	printf("\n");
-	printf(gettext("UWAGA: niezbedne jest podanie pliku konfiguracyjnego!\n"));
+	printf(gettext("CAUTION: using without given config file are cause error!\n"));
 	printf("\n");
-	printf(gettext("Dostepne opcje:\n"));
-	printf(gettext("   -f, --file=PLIK       Plik konfiguracyjny do obsluzenia\n"));
+	printf(gettext("Available options:\n"));
+	printf(gettext("   -f, --file=FILE       Configuration file to handle.\n"));
 	printf("\n");
-	printf(gettext("   -s, --set=SCIEZKA     Ustawienie wartosci konfiguracyjnej o podanej sciezce\n"));
-	printf(gettext("   -d, --data=DANE       Wartosc do ustawienia (tylko z -s)\n"));
-	printf(gettext("   -p, --type=TYP        Typ wartosci do ustawienia\n"));
+	printf(gettext("   -s, --set=PATH        Set configuration variable of given path.\n"));
+	printf(gettext("   -d, --data=DATA       Configuration variable value (only with -s)\n"));
+	printf(gettext("   -p, --type=TYPE       Configuration value type\n"));
 	printf("\n");
-	printf(gettext("   -g, --get=SCIEZKA     Pobranie danych konfiguracyjnych o podanej sciezce\n"));
-	printf(gettext("   -n, --names           Wypisz nazwy zmiennych\n"));
-	printf(gettext("   -t, --types           Wypisz typy zmiennych\n"));
-	printf(gettext("   -v, --values          Wypisz wartosci zmiennych\n"));
-	printf(gettext("   -i, --indexes         Wypisz indeksy zmiennych\n"));
-	printf(gettext("   -c, --count           Wypisz ilosc elementow (tylko: array, list, group)\n"));
-	printf(gettext("   -b, --bool-string     Wypisz wartosci logiczne tekstowo\n"));
+	printf(gettext("   -g, --get=PATH        Get configuration variable of given path.\n"));
+	printf(gettext("   -n, --names           Printout variables names.\n"));
+	printf(gettext("   -t, --types           Printout variables types.\n"));
+	printf(gettext("   -v, --values          Printout variables values.\n"));
+	printf(gettext("   -i, --indexes         Printout variables indexes.\n"));
+	printf(gettext("   -c, --count           Printout elements count (only: array, list, group).\n"));
+	printf(gettext("   -b, --bool-string     Printout boolean variables as text.\n"));
 	printf("\n");
-	printf(gettext("   -q, --quiet           Ciche wyjscie do uzycia w skryptach\n"));
-	printf(gettext("   -h, --help            Wyswietla niniejszy opis\n"));
+	printf(gettext("   -q, --quiet           Quiet output to use in scripts.\n"));
+	printf(gettext("   -h, --help            Print this help message.\n"));
 	printf("\n");
-	printf(gettext("TYP:     typ zmiennej:\n"));
-	printf(gettext("         group  - grupa zmiennych\n"));
-	printf(gettext("         array  - tablica zmiennych\n"));
-	printf(gettext("         list   - lista zmiennych\n"));
-	printf(gettext("         int    - liczba calkowita\n"));
-	printf(gettext("         int64  - liczba calkowita 64 bitowa \n"));
-	printf(gettext("         float  - liczba zmiennoprzecinkowa \n"));
-	printf(gettext("         bool   - wartosc logiczna \n"));
-	printf(gettext("         string - lancuch znakowy \n"));
+	printf(gettext("TYPE:    Variable types:\n"));
+	printf(gettext("         group  - variables group,\n"));
+	printf(gettext("         array  - array of variables,\n"));
+	printf(gettext("         list   - list of variables,\n"));
+	printf(gettext("         int    - integer number,\n"));
+	printf(gettext("         int64  - 64bit integer number,\n"));
+	printf(gettext("         float  - float point number,\n"));
+	printf(gettext("         bool   - boolean value,\n"));
+	printf(gettext("         string - character string.\n"));
 	printf("\n");
 	printf("(c) 2013 by LucaS web sutio - http://www.lucas.net.pl\n");
 	printf("Author: Łukasz A. Grabowski\n");
+   printf(gettext("Licence: "));
+	printf("GPL v2.\n");
    exit(0);
 };
 

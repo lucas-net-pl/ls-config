@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-09-28 18:34+0200\n"
+"POT-Creation-Date: 2013-09-29 19:57+0200\n"
 "PO-Revision-Date: 2013-09-09 23:55+0200\n"
 "Last-Translator: Łukasz A. Grabowski <lucas@lucas.net.pl>\n"
 "Language-Team: Language pl-PL\n"
@@ -16,271 +16,276 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ls-config.c:45
-#, c-format
-msgid "Obsluga plikuow konfiguracyjnych\n"
-msgstr "Obsługa plików konfiguracyjnych\n"
-
-#: ls-config.c:47
-#, c-format
-msgid "Skladnia: ls-config [OPCJA]\n"
-msgstr "Składnia: ls-config [OPCJA]\n"
-
-#: ls-config.c:48
-#, c-format
-msgid "Odczytuje i zapisuje dane z plikow konfiguracyjnych\n"
-msgstr "Odczytuje i zapisuje dane z plików konfiguracyjnych\n"
-
 #: ls-config.c:49
 #, c-format
-msgid "w formacie libconfig9\n"
-msgstr "w formacie libconfig9\n"
+msgid "Configuration file handling\n"
+msgstr "Obsluga plików konfiguracyjnych\n"
 
 #: ls-config.c:51
 #, c-format
-msgid "UWAGA: niezbedne jest podanie pliku konfiguracyjnego!\n"
-msgstr "UWAGA: niezbędne jest podanie pliku konfiguracyjnego!\n"
+msgid "Usage: ls-config [OPTION]\n"
+msgstr "Składnia: ls-config [OPCJA]\n"
+
+#: ls-config.c:52
+#, c-format
+msgid "Reading and writening data from configuration files\n"
+msgstr "Odczytuje i zapisuje pliki konfiguracyjne\n"
 
 #: ls-config.c:53
 #, c-format
-msgid "Dostepne opcje:\n"
-msgstr "Dostępne opcje:\n"
+msgid "in libconfig9 format.\n"
+msgstr "w formacie libconfig9.\n"
 
-#: ls-config.c:54
+#: ls-config.c:55
 #, c-format
-msgid "   -f, --file=PLIK       Plik konfiguracyjny do obsluzenia\n"
-msgstr "   -f, --file=PLIK       Plik konfiguracyjny do obsłużenia\n"
-
-#: ls-config.c:56
-#, c-format
-msgid ""
-"   -s, --set=SCIEZKA     Ustawienie wartosci konfiguracyjnej o podanej "
-"sciezce\n"
-msgstr ""
-"   -s, --set=SCIEZKA     Ustawienie wartości konfiguracyjnej o podanej "
-"ścieżce\n"
+msgid "CAUTION: using without given config file are cause error!\n"
+msgstr "UWAGA: użycie bez podania pliku konfiguracyjnego powoduje błąd!\n"
 
 #: ls-config.c:57
 #, c-format
-msgid "   -d, --data=DANE       Wartosc do ustawienia (tylko z -s)\n"
-msgstr "   -d, --data=DANE       Wartość do ustawienia (tylko z -s)\n"
+msgid "Available options:\n"
+msgstr "Dostępne opcje:\n"
 
 #: ls-config.c:58
 #, c-format
-msgid "   -p, --type=TYP        Typ wartosci do ustawienia\n"
-msgstr "   -p, --type=TYP        Typ wartości do ustawienia\n"
+msgid "   -f, --file=FILE       Configuration file to handle.\n"
+msgstr "   -f, --file=PLIK       Plik konfiguracyjny do obsłużenia.\n"
 
 #: ls-config.c:60
 #, c-format
-msgid ""
-"   -g, --get=SCIEZKA     Pobranie danych konfiguracyjnych o podanej sciezce\n"
+msgid "   -s, --set=PATH        Set configuration variable of given path.\n"
 msgstr ""
-"   -g, --get=SCIEZKA     Pobranie danych konfiguracyjnych o podanej ścieżce\n"
+"   -s, --set=SCIEZKA     Ustawia zmienną konfiguracyjną o podanej ścieżce.\n"
 
 #: ls-config.c:61
 #, c-format
-msgid "   -n, --names           Wypisz nazwy zmiennych\n"
-msgstr "   -n, --names           Wypisz nazwy zmiennych\n"
+msgid "   -d, --data=DATA       Configuration variable value (only with -s)\n"
+msgstr ""
+"   -d, --data=DANE       Wartość zmiennej konfiguracyjnej (tylko z -s).\n"
 
 #: ls-config.c:62
 #, c-format
-msgid "   -t, --types           Wypisz typy zmiennych\n"
-msgstr "   -t, --types           Wypisz typy zmiennych\n"
-
-#: ls-config.c:63
-#, c-format
-msgid "   -v, --values          Wypisz wartosci zmiennych\n"
-msgstr "   -v, --values          Wypisz wartości zmiennych\n"
+msgid "   -p, --type=TYPE       Configuration value type\n"
+msgstr "   -p, --type=TYP        Typ wartości konfiguracyjnej.\n"
 
 #: ls-config.c:64
 #, c-format
-msgid "   -i, --indexes         Wypisz indeksy zmiennych\n"
-msgstr "   -i, --indexex           Wypisz indeksy zmiennych\n"
+msgid "   -g, --get=PATH        Get configuration variable of given path.\n"
+msgstr ""
+"   -g, --get=SCIEZKA     Pobież zmienną konfiguracyjną o podajen ścieżce.\n"
 
 #: ls-config.c:65
 #, c-format
-msgid ""
-"   -c, --count           Wypisz ilosc elementow (tylko: array, list, group)\n"
-msgstr ""
-"   -c, --count           Wypisz ilość elementow (tylko: array, list, group)\n"
+msgid "   -n, --names           Printout variables names.\n"
+msgstr "   -n, --names           Wypisz nazwy zmiennych.\n"
 
 #: ls-config.c:66
 #, c-format
-msgid "   -b, --bool-string     Wypisz wartosci logiczne tekstowo\n"
-msgstr "   -b, --bool-string     Wypisz wartości logiczne tekstowo\n"
+msgid "   -t, --types           Printout variables types.\n"
+msgstr "   -t, --types           Wypisz typy zmiennych.\n"
+
+#: ls-config.c:67
+#, c-format
+msgid "   -v, --values          Printout variables values.\n"
+msgstr "   -v, --values          Wypisz wartości zmiennych.\n"
 
 #: ls-config.c:68
 #, c-format
-msgid "   -q, --quiet           Ciche wyjscie do uzycia w skryptach\n"
-msgstr "   -q, --quiet           Ciche wyjście do użycia w skryptach\n"
+msgid "   -i, --indexes         Printout variables indexes.\n"
+msgstr "   -i, --indexes         Wypisz indexy zmiennych.\n"
 
 #: ls-config.c:69
 #, c-format
-msgid "   -h, --help            Wyswietla niniejszy opis\n"
-msgstr "   -h, --help            Wyswietla niniejszy opis\n"
+msgid ""
+"   -c, --count           Printout elements count (only: array, list, "
+"group).\n"
+msgstr ""
+"   -c, --count           Wypisz liczy elementów (tylko: array, list, "
+"group).\n"
 
-#: ls-config.c:71
+#: ls-config.c:70
 #, c-format
-msgid "TYP:     typ zmiennej:\n"
-msgstr "TYP:     typ zmiennej:\n"
+msgid "   -b, --bool-string     Printout boolean variables as text.\n"
+msgstr "   -b, --bool-string     Wypisz wartości logiczne tekstowo.\n"
 
 #: ls-config.c:72
 #, c-format
-msgid "         group  - grupa zmiennych\n"
-msgstr "         group  - grupa zmiennych\n"
+msgid "   -q, --quiet           Quiet output to use in scripts.\n"
+msgstr "   -q, --quiet           Ciche wyjście do użcia w skryptach.\n"
 
 #: ls-config.c:73
 #, c-format
-msgid "         array  - tablica zmiennych\n"
-msgstr "         array  - tablica zmiennych\n"
-
-#: ls-config.c:74
-#, c-format
-msgid "         list   - lista zmiennych\n"
-msgstr "         list   - lista zmiennych\n"
+msgid "   -h, --help            Print this help message.\n"
+msgstr "   -h, --help            Wyswietla niniejszy opis\n"
 
 #: ls-config.c:75
 #, c-format
-msgid "         int    - liczba calkowita\n"
-msgstr "         int    - liczba całkowita\n"
+msgid "TYPE:    Variable types:\n"
+msgstr "TYP:     Typy zmiennej:\n"
 
 #: ls-config.c:76
 #, c-format
-msgid "         int64  - liczba calkowita 64 bitowa \n"
-msgstr "         int64  - liczba całkowita 64 bitowa \n"
+msgid "         group  - variables group,\n"
+msgstr "         group  - grupa zmiennych.\n"
 
 #: ls-config.c:77
 #, c-format
-msgid "         float  - liczba zmiennoprzecinkowa \n"
-msgstr "         float  - liczba zmiennoprzecinkowa \n"
+msgid "         array  - array of variables,\n"
+msgstr "         array  - tablica zmiennych (tego samego typu podstawowego),\n"
 
 #: ls-config.c:78
 #, c-format
-msgid "         bool   - wartosc logiczna \n"
-msgstr "         bool   - wartość logiczna \n"
+msgid "         list   - list of variables,\n"
+msgstr "         list   - lista zmiennych,\n"
 
 #: ls-config.c:79
 #, c-format
-msgid "         string - lancuch znakowy \n"
-msgstr "         string - łąńcuch znakowy \n"
+msgid "         int    - integer number,\n"
+msgstr "         int    - liczba całkowita,\n"
 
-#: ls-config.c:93 ls-config.c:112 ls-config.c:130 ls-config.c:147
+#: ls-config.c:80
+#, c-format
+msgid "         int64  - 64bit integer number,\n"
+msgstr "         int64  - liczba całkowita 64bitowa,\n"
+
+#: ls-config.c:81
+#, c-format
+msgid "         float  - float point number,\n"
+msgstr "         float  - liczba zmiennoprzecinkowa,\n"
+
+#: ls-config.c:82
+#, c-format
+msgid "         bool   - boolean value,\n"
+msgstr "         bool   - wartość logiczna,\n"
+
+#: ls-config.c:83
+#, c-format
+msgid "         string - character string.\n"
+msgstr "         string - łąńcuch znakowy.\n"
+
+#: ls-config.c:87
+#, c-format
+msgid "Licence: "
+msgstr "Licencja: "
+
+#: ls-config.c:99 ls-config.c:118 ls-config.c:136 ls-config.c:153
 #, c-format
 msgid "BLAD! Bledny format danych.\n"
 msgstr "BŁĄD! Błędny format danych.\n"
 
-#: ls-config.c:99 ls-config.c:117 ls-config.c:135 ls-config.c:152
-#: ls-config.c:284 ls-config.c:301 ls-config.c:361 ls-config.c:402
-#: ls-config.c:431 ls-config.c:455 ls-config.c:473 ls-config.c:491
-#: ls-config.c:509 ls-config.c:515 ls-config.c:528 ls-config.c:570
-#: ls-config.c:588 ls-config.c:642
+#: ls-config.c:105 ls-config.c:123 ls-config.c:141 ls-config.c:158
+#: ls-config.c:290 ls-config.c:307 ls-config.c:367 ls-config.c:408
+#: ls-config.c:437 ls-config.c:461 ls-config.c:479 ls-config.c:497
+#: ls-config.c:515 ls-config.c:521 ls-config.c:534 ls-config.c:576
+#: ls-config.c:594 ls-config.c:648
 #, c-format
 msgid "BLAD! Nie udalo sie ustawic zmiennej.\n"
 msgstr "BŁĄD! Nie udało sią ustawić zmiennej.\n"
 
-#: ls-config.c:222 ls-config.c:671 ls-config.c:733 ls-config.c:1156
+#: ls-config.c:228 ls-config.c:677 ls-config.c:739 ls-config.c:1162
 #, c-format
 msgid "BLAD! Nie mozna otworzyc pliku konfiguracyjnego.\n"
 msgstr "BŁĄD! Nie można otworzyć pliku konfiguracyjnego.\n"
 
-#: ls-config.c:227 ls-config.c:676
+#: ls-config.c:233 ls-config.c:682
 #, c-format
 msgid "BLAD! Nie podano sciezki zmiennej.\n"
 msgstr "BŁĄD! Nie podano ścieżki zmiennej.\n"
 
-#: ls-config.c:232
+#: ls-config.c:238
 #, c-format
 msgid "BLAD! Nie podano wartosci zmiennej.\n"
 msgstr "BŁĄD! Nie podano wartości zmiennej.\n"
 
-#: ls-config.c:246
+#: ls-config.c:252
 #, c-format
 msgid "BLAD! Bledna sciezka zmiennej.\n"
 msgstr "BŁĄD! Błędna ścieżka zmiennej.\n"
 
-#: ls-config.c:252
+#: ls-config.c:258
 #, c-format
 msgid "BLAD! Nowa nazwe zmiennej mozna dodac tylko do grupy.\n"
 msgstr "BŁĄD! Nową nazwe zmiennej można dodać tylko do grupy.\n"
 
-#: ls-config.c:257 ls-config.c:381 ls-config.c:543 ls-config.c:610
+#: ls-config.c:263 ls-config.c:387 ls-config.c:549 ls-config.c:616
 #, c-format
 msgid "BLAD! Nie okreslono typu zmiennej.\n"
 msgstr "BŁĄD! Nie określono typu zmiennej.\n"
 
-#: ls-config.c:278 ls-config.c:396 ls-config.c:564 ls-config.c:636
+#: ls-config.c:284 ls-config.c:402 ls-config.c:570 ls-config.c:642
 #, c-format
 msgid "BLAD! Niedozwolony typ zmiennej.\n"
 msgstr "BŁĄD! Niedozwolony typ zmiennej.\n"
 
-#: ls-config.c:319 ls-config.c:331 ls-config.c:343 ls-config.c:355
-#: ls-config.c:368 ls-config.c:449 ls-config.c:467 ls-config.c:485
-#: ls-config.c:503 ls-config.c:522
+#: ls-config.c:325 ls-config.c:337 ls-config.c:349 ls-config.c:361
+#: ls-config.c:374 ls-config.c:455 ls-config.c:473 ls-config.c:491
+#: ls-config.c:509 ls-config.c:528
 #, c-format
 msgid "BLAD! Niezgodny typ zmiennej.\n"
 msgstr "BŁĄD! Niezgodny typ zmiennej.\n"
 
-#: ls-config.c:602 ls-config.c:646
+#: ls-config.c:608 ls-config.c:652
 #, c-format
 msgid "Dodano pozycje: %d\n"
 msgstr "Dodano pozycję: %d\n"
 
-#: ls-config.c:615
+#: ls-config.c:621
 #, c-format
 msgid "BLAD! Bledna nazwa zmiennej konfiguracyjnej.\n"
 msgstr "BŁĄD! Błędna nazwa zmiennej konfiguracyjnej.\n"
 
-#: ls-config.c:657 ls-config.c:706
+#: ls-config.c:663 ls-config.c:712
 #, c-format
 msgid "BLAD! Zapisu pliku konfiguracyjnego.\n"
 msgstr "BŁĄD! Zapisu pliku konfiguracyjnego.\n"
 
-#: ls-config.c:682 ls-config.c:743
+#: ls-config.c:688 ls-config.c:749
 #, c-format
 msgid "BLAD! Nie odnaleziono poszukiwanej konfiguracji.\n"
 msgstr "BĄDD! Nie odnalexiono poszukiwanej konfiguracji.\n"
 
-#: ls-config.c:688
+#: ls-config.c:694
 #, c-format
 msgid "BLAD! Nie mozna usunac glownego elementu.\n"
 msgstr "BŁĄD! Nie można usunąć głównego elementu.\n"
 
-#: ls-config.c:694
+#: ls-config.c:700
 #, c-format
 msgid "BLAD! Nie mozna znalezc elementu nadrzednego.\n"
 msgstr "BŁĄD! Nie można znaleźć elementu nadrzędnego.\n"
 
-#: ls-config.c:700
+#: ls-config.c:706
 #, c-format
 msgid "BLAD! Nie udalo sie usunac elementu.\n"
 msgstr "BŁĄD! Nie udało się usunąć elementu.\n"
 
-#: ls-config.c:965
+#: ls-config.c:971
 #, c-format
 msgid "Nazwa zmiennej:   %s\n"
 msgstr "Nazwa zmiennej:   %s\n"
 
-#: ls-config.c:968
+#: ls-config.c:974
 #, c-format
 msgid "Typ zmiennej:     %s\n"
 msgstr "Typ zmiennej:     %s\n"
 
-#: ls-config.c:971
+#: ls-config.c:977
 #, c-format
 msgid "Wartosc zmiennej: %s\n"
 msgstr "Wartość zmiennej: %s\n"
 
-#: ls-config.c:974
+#: ls-config.c:980
 #, c-format
 msgid "Index zmiennej:   %d\n"
 msgstr "Indeks zmiennej:  %d\n"
 
-#: ls-config.c:977
+#: ls-config.c:983
 #, c-format
 msgid "Ilosc zmiennych:  %d\n"
 msgstr "Ilosc zmiennych: %d\n"
 
-#: ls-config.c:1162
+#: ls-config.c:1168
 #, c-format
 msgid "BLAD! Nie okreslono sciezki zmiennej.\n"
 msgstr "BŁĄD! Nie określono ścieżki zmiennej.\n"
+
