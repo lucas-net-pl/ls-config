@@ -89,89 +89,114 @@ void printHelp() {
    exit(0);
 };
 
+//set configuration int value
 int set_config_int(config_setting_t *setting, char *dataString, struct flags optflags) {
-	long bufl;
-	int buf, scs;
-	char *erp;	
+	long bufl; //int (long) to get from input data string
+	int buf, scs; //config int, success status
+	char *erp; //error output
+	
+	//convert input data to int
 	errno = 0;
 	bufl = strtol(dataString, &erp, 0);
 	if(((errno == ERANGE && (bufl == LONG_MAX || bufl == LONG_MIN)) || (errno != 0 && bufl == 0)) || (erp == dataString) || bufl > INT_MAX || bufl < INT_MIN) {
-		if(optflags.quiet == 0) printf(gettext("BLAD! Bledny format danych.\n"));
+		if(optflags.quiet == 0) printf(gettext("ERROR! Incorrect data format.\n"));
   			return 12;
 		};
 	buf = (int)bufl;
+
+	//set configuration variable
 	scs = config_setting_set_int(setting, buf);
 	if(scs == CONFIG_FALSE) {
-		if(optflags.quiet == 0) printf(gettext("BLAD! Nie udalo sie ustawic zmiennej.\n"));
+		if(optflags.quiet == 0) printf(gettext("ERROR! Variable set failed.\n"));
 		return 11;
 	};	
 	return 0;
 };
 
+//set configuration int64 value
 int set_config_int64(config_setting_t *setting, char *dataString, struct flags optflags) {
-	long bufl;
-	int scs;
-	char *erp;	
+	long bufl; //long to get from input data string
+	int scs; //success status
+	char *erp; //error output
+
+	//convert input data to long
 	errno = 0;
 	bufl = strtol(dataString, &erp, 0);
 	if(((errno == ERANGE && (bufl == LONG_MAX || bufl == LONG_MIN)) || (errno != 0 && bufl == 0)) || (erp == dataString)) {
-		if(optflags.quiet == 0) printf(gettext("BLAD! Bledny format danych.\n"));
+		if(optflags.quiet == 0) printf(gettext("ERROR! Incorrect data format.\n"));
 			return 12;
 		};
+
+	//set configuration variable
 	scs = config_setting_set_int64(setting, bufl);
 	if(scs == CONFIG_FALSE) {
-		if(optflags.quiet == 0) printf(gettext("BLAD! Nie udalo sie ustawic zmiennej.\n"));
+		if(optflags.quiet == 0) printf(gettext("ERROR! Variable set failed.\n"));
 		return 11;
 	};	
 	return 0;
 };
 
+//set configuration float value
 int set_config_float(config_setting_t *setting, char *dataString, struct flags optflags) {
-	double buff;
-	int scs;
-	char *erp;	
+	double buff; //double (float) to get from input data string
+	int scs; //success status
+	char *erp; //error output
+
+	//convert input data to double
 	errno = 0;
 	buff = strtod(dataString, &erp);
    if(((errno == ERANGE && (buff == HUGE_VALF || buff == HUGE_VALL)) || (errno != 0 && buff == 0)) || (erp == dataString)) {
-		if(optflags.quiet == 0) printf(gettext("BLAD! Bledny format danych.\n"));
+		if(optflags.quiet == 0) printf(gettext("ERROR! Incorrect data format.\n"));
 		return 12;
 	}
+
+	//set configuration variable
 	scs = config_setting_set_float(setting, buff);
 	if(scs == CONFIG_FALSE) {
-		if(optflags.quiet == 0) printf(gettext("BLAD! Nie udalo sie ustawic zmiennej.\n"));
+		if(optflags.quiet == 0) printf(gettext("ERROR! Variable set failed.\n"));
 		return 11;
 	};	
 	return 0;
 };
 
+//set configuration boolean value
 int set_config_bool(config_setting_t *setting, char *dataString, struct flags optflags) {
-	int scs, buf;
+	int scs, buf; //success status, input convert burrer
+
+	//convert input data
+	//chceck both 1/0 and true/false string
 	buf = -1;
 	if(!strcmp(dataString, "1") || !strcmp(dataString, "true") || !strcmp(dataString, "TRUE")) buf = 1;
 	if(!strcmp(dataString, "0") || !strcmp(dataString, "false") || !strcmp(dataString, "FALSE")) buf = 0;
 	if(buf < 0) {
-		if(optflags.quiet == 0) printf(gettext("BLAD! Bledny format danych.\n"));
+		if(optflags.quiet == 0) printf(gettext("ERROR! Incorrect data format.\n"));
 		return 12;
 	}
+
+	//set configuration variable
 	scs = config_setting_set_bool(setting, buf);
 	if(scs == CONFIG_FALSE) {
-		if(optflags.quiet == 0) printf(gettext("BLAD! Nie udalo sie ustawic zmiennej.\n"));
+		if(optflags.quiet == 0) printf(gettext("ERROR! Variable set failed.\n"));
 		return 11;
 	};	
 	return 0;
 };
 
+//configuratnion variable path look like: foo.bar.car
+//this fuction return string giving path to parent element (foo.bar)
 char* path_parent(char *dataPath) {
-	char *str_ptr, *last_ptr, *newpath, *dot=".";
+	char *str_ptr, *last_ptr, *newpath, *dot="."; //tokenized buffer, last buffer, new parent path, separator
 	newpath = malloc(1);
 	memset(newpath, 0, 1);
 	last_ptr = malloc(1);
 	memset(last_ptr, 0, 1);
 	
+	//tokenize string and save last token
 	str_ptr = strtok(dataPath, ".");
 	last_ptr = (char*)realloc(last_ptr, (strlen(str_ptr)+1)*sizeof(char));
 	strcpy(last_ptr, str_ptr);
 
+	//loop overt path to build new path without last element
 	while(str_ptr != NULL) {
 		str_ptr = strtok(NULL, ".");
 		if(str_ptr != NULL) {
@@ -188,6 +213,8 @@ char* path_parent(char *dataPath) {
 		};
   	};
 	free(dataPath);
+
+	//if new path empty thren return null
 	if(strlen(newpath) == 0) {
 		free(newpath);
 		newpath = NULL;
@@ -195,21 +222,29 @@ char* path_parent(char *dataPath) {
 	return newpath;
 };
 
+//get element name from configuration variable path
+//e.g.: from foo.bar return bar
 char* path_name(char *dataPath) {
-	char *str_ptr, *name, *tk;
+	char *str_ptr, *name, *tk; //tokenized buffer, element name, copy of dataPath
 	name = malloc(1);
+
+	//make copy of dataPath
 	tk = malloc((strlen(dataPath)+1)*sizeof(char));
 	memset(name, 0, 1);
 	strcpy(tk, dataPath);
 
+	//tokenize dataPath
 	str_ptr = strtok(tk, ".");
-
+	
+	//loop over tokenize pathh to get last element
 	while(str_ptr != NULL) {
 		name = (char*)realloc(name, (strlen(str_ptr)+1)*sizeof(char));
 		strcpy(name, str_ptr);
 		str_ptr = strtok(NULL, ".");
   	};
 	free(tk);
+
+	//if no element name then return null
 	if(strlen(name) == 0) {
 		free(name);
 		name = NULL;
@@ -217,29 +252,44 @@ char* path_name(char *dataPath) {
 	return name;
 };
 
+//set configuration path
+//@return int success
+//@param configFile - name (with path) of configuration fille
+//@param dataPath - path of configuation variable (in config file)
+//@param optflags - global options flags
+//@param dataString - data to store in configuration variable in string format
+//@param dataType - type of variable to save
 int set_config(char *configFile, char *dataPath, struct flags optflags, char *dataString, char *dataType) {
-	config_t cfg;
-	config_setting_t *setting, *ss;
+	config_t cfg; //libcongig configuration handler
+	config_setting_t *setting, *ss; //libconfig element handrer: mant, and subset (uset for multielement types)
 	config_init(&cfg);
-	int scs, dt, dattyp;
-	char *npath;
+	int scs, dt, dattyp; //sucess statu, data type
+	char *npath; // new variable configuration path path
+
+	//open and read configuration file
 	if(!config_read_file(&cfg, configFile)) {
   		config_destroy(&cfg);
-		if(optflags.quiet == 0) printf(gettext("BLAD! Nie mozna otworzyc pliku konfiguracyjnego.\n"));
+		if(optflags.quiet == 0) printf(gettext("ERROR! Can't read configuration file.\n"));
   		return 1;
  	};
+
+	//if no data path or data string then cause error
 	if(dataPath == NULL) {
   		config_destroy(&cfg);
-		if(optflags.quiet == 0) printf(gettext("BLAD! Nie podano sciezki zmiennej.\n"));
+		if(optflags.quiet == 0) printf(gettext("ERROR! Conviguration variable path not given.\n"));
   		return 4;
 	};
 	if(dataString == NULL) {
   		config_destroy(&cfg);
-		if(optflags.quiet == 0) printf(gettext("BLAD! Nie podano wartosci zmiennej.\n"));
+		if(optflags.quiet == 0) printf(gettext("ERROR! Configuration variable value not given.\n"));
   		return 9;
 	};
+
+ 	//find configuration variable of given path
 	setting = config_lookup(&cfg, dataPath);
 	if(setting == NULL) {
+		//if variable of given path not found get element name and partent path, 
+		//then try to create it
 		npath = path_name(dataPath);
 		dataPath = path_parent(dataPath);
 		if(dataPath == NULL) {		
@@ -248,21 +298,25 @@ int set_config(char *configFile, char *dataPath, struct flags optflags, char *da
 			setting = config_lookup(&cfg, dataPath);
 		};
 		if(setting == NULL) {
+			//if parent not exists exit with error
 			config_destroy(&cfg);
-			if(optflags.quiet == 0) printf(gettext("BLAD! Bledna sciezka zmiennej.\n"));
+			if(optflags.quiet == 0) printf(gettext("ERROR! Inavlid configuration variable path.\n"));
   			return 16;
 		};
+		//chceck type of parent element (named alement can be added only to group element)
 		dt = config_setting_type(setting);
 		if(dt != CONFIG_TYPE_GROUP) {
 			config_destroy(&cfg);
-			if(optflags.quiet == 0) printf(gettext("BLAD! Nowa nazwe zmiennej mozna dodac tylko do grupy.\n"));
+			if(optflags.quiet == 0) printf(gettext("ERROR! New named configuration variable can be added only to group element.\n"));
   			return 17;
 		};
+		//check if new element type are given
 		if(dataType == NULL) {
 			config_destroy(&cfg);
-			if(optflags.quiet == 0) printf(gettext("BLAD! Nie okreslono typu zmiennej.\n"));
+			if(optflags.quiet == 0) printf(gettext("ERROR! Configuration variable type not given.\n"));
   			return 13;
 		};
+		//now get type based on his name
 		if(!strcmp(dataType, "int")) {
 			dattyp = CONFIG_TYPE_INT;
 		} else if(!strcmp(dataType, "int64")) {
@@ -280,17 +334,20 @@ int set_config(char *configFile, char *dataPath, struct flags optflags, char *da
 		} else if(!strcmp(dataType, "group")) {
 			dattyp = CONFIG_TYPE_GROUP;
 		} else {
+			//if given type no mutch eny then cause error and exit
 			config_destroy(&cfg);
-			if(optflags.quiet == 0) printf(gettext("BLAD! Niedozwolony typ zmiennej.\n"));
+			if(optflags.quiet == 0) printf(gettext("ERROR! Inlegal data type.\n"));
   			return 14;
 		};
+		//add new element to configuration file
 		ss = config_setting_add(setting, npath, dattyp);
 		if(ss == NULL) {
 			config_destroy(&cfg);
-			if(optflags.quiet == 0) printf(gettext("BLAD! Nie udalo sie ustawic zmiennej.\n"));
+			if(optflags.quiet == 0) printf(gettext("ERROR! Variable set failed.\n"));
   			return 11;
 		};
 		scs = 0;
+		//and based on new type set his value
 		switch(dattyp) {
 			case CONFIG_TYPE_INT:
 				scs = set_config_int(ss, dataString, optflags);
@@ -304,7 +361,7 @@ int set_config(char *configFile, char *dataPath, struct flags optflags, char *da
 			case CONFIG_TYPE_STRING:
 				scs = config_setting_set_string(ss, dataString);
 				if(scs == CONFIG_FALSE) {
-					if(optflags.quiet == 0) printf(gettext("BLAD! Nie udalo sie ustawic zmiennej.\n"));
+					if(optflags.quiet == 0) printf(gettext("ERROR! Variable set failed.\n"));
   					scs = 11;
 				} else scs = 0;
 				break;
@@ -313,10 +370,12 @@ int set_config(char *configFile, char *dataPath, struct flags optflags, char *da
 				break;
 		};
 		if(scs > 0) {
+			//if occurs some error wihe setting variable value exit with error
 			config_destroy(&cfg);
 			return scs;
       };
 	} else {
+		//but if we found element of given path, try to set his value
 		dt = config_setting_type(setting);
 		switch(dt) {
 			case CONFIG_TYPE_INT:

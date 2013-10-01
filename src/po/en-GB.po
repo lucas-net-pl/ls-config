@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-09-29 19:57+0200\n"
+"POT-Creation-Date: 2013-10-01 23:10+0200\n"
 "PO-Revision-Date: 2013-09-09 23:56+0200\n"
 "Last-Translator: Łukasz A. Grabowski <lucas@lucas.net.pl>\n"
 "Language-Team: Language en-GB\n"
@@ -165,123 +165,161 @@ msgstr "         string - character string.\n"
 msgid "Licence: "
 msgstr "Licence: "
 
-#: ls-config.c:99 ls-config.c:118 ls-config.c:136 ls-config.c:153
+#: ls-config.c:102 ls-config.c:126 ls-config.c:149 ls-config.c:172
 #, c-format
-msgid "BLAD! Bledny format danych.\n"
-msgstr "ERROR! Invalid data format.\n"
+msgid "ERROR! Incorrect data format.\n"
+msgstr "ERROR! Incorrect data format.\n"
 
-#: ls-config.c:105 ls-config.c:123 ls-config.c:141 ls-config.c:158
-#: ls-config.c:290 ls-config.c:307 ls-config.c:367 ls-config.c:408
-#: ls-config.c:437 ls-config.c:461 ls-config.c:479 ls-config.c:497
-#: ls-config.c:515 ls-config.c:521 ls-config.c:534 ls-config.c:576
-#: ls-config.c:594 ls-config.c:648
+#: ls-config.c:110 ls-config.c:133 ls-config.c:156 ls-config.c:179
+#: ls-config.c:346 ls-config.c:364
 #, c-format
-msgid "BLAD! Nie udalo sie ustawic zmiennej.\n"
-msgstr "ERROR! variable set fail.\n"
+msgid "ERROR! Variable set failed.\n"
+msgstr "ERROR! Variable set failed.\n"
 
-#: ls-config.c:228 ls-config.c:677 ls-config.c:739 ls-config.c:1162
+#: ls-config.c:272
 #, c-format
-msgid "BLAD! Nie mozna otworzyc pliku konfiguracyjnego.\n"
-msgstr "ERROR! can't open configuration file.\n"
+msgid "ERROR! Can't read configuration file.\n"
+msgstr "ERROR! Can't read configuration file.\n"
 
-#: ls-config.c:233 ls-config.c:682
+#: ls-config.c:279
 #, c-format
-msgid "BLAD! Nie podano sciezki zmiennej.\n"
-msgstr "ERROR! variable path not given.\n"
+msgid "ERROR! Conviguration variable path not given.\n"
+msgstr "ERROR! Conviguration variable path not given.\n"
 
-#: ls-config.c:238
+#: ls-config.c:284
 #, c-format
-msgid "BLAD! Nie podano wartosci zmiennej.\n"
-msgstr "ERROR! variable value not given.\n"
+msgid "ERROR! Configuration variable value not given.\n"
+msgstr "ERROR! Configuration variable value not given.\n"
 
-#: ls-config.c:252
+#: ls-config.c:303
 #, c-format
-msgid "BLAD! Bledna sciezka zmiennej.\n"
-msgstr "ERROR! invalid variable path.\n"
+msgid "ERROR! Inavlid configuration variable path.\n"
+msgstr "ERROR! Inavlid configuration variable path.\n"
 
-#: ls-config.c:258
+#: ls-config.c:310
 #, c-format
-msgid "BLAD! Nowa nazwe zmiennej mozna dodac tylko do grupy.\n"
-msgstr "ERROR! New variable name can be added only to group.\n"
+msgid ""
+"ERROR! New named configuration variable can be added only to group element.\n"
+msgstr ""
+"ERROR! New named configuration variable can be added only to group element.\n"
 
-#: ls-config.c:263 ls-config.c:387 ls-config.c:549 ls-config.c:616
+#: ls-config.c:316
 #, c-format
-msgid "BLAD! Nie okreslono typu zmiennej.\n"
-msgstr "ERROR! variable type not given.\n"
+msgid "ERROR! Configuration variable type not given.\n"
+msgstr "ERROR! Configuration variable type not given.\n"
 
-#: ls-config.c:284 ls-config.c:402 ls-config.c:570 ls-config.c:642
+#: ls-config.c:339
 #, c-format
-msgid "BLAD! Niedozwolony typ zmiennej.\n"
-msgstr "ERROR! Unknown variable type.\n"
+msgid "ERROR! Inlegal data type.\n"
+msgstr "ERROR! Inlegal data type.\n"
 
-#: ls-config.c:325 ls-config.c:337 ls-config.c:349 ls-config.c:361
-#: ls-config.c:374 ls-config.c:455 ls-config.c:473 ls-config.c:491
-#: ls-config.c:509 ls-config.c:528
+#: ls-config.c:384 ls-config.c:396 ls-config.c:408 ls-config.c:420
+#: ls-config.c:433 ls-config.c:514 ls-config.c:532 ls-config.c:550
+#: ls-config.c:568 ls-config.c:587
 #, c-format
 msgid "BLAD! Niezgodny typ zmiennej.\n"
 msgstr "ERROR! variable type missmash.\n"
 
-#: ls-config.c:608 ls-config.c:652
+#: ls-config.c:426 ls-config.c:467 ls-config.c:496 ls-config.c:520
+#: ls-config.c:538 ls-config.c:556 ls-config.c:574 ls-config.c:580
+#: ls-config.c:593 ls-config.c:635 ls-config.c:653 ls-config.c:707
+#, c-format
+msgid "BLAD! Nie udalo sie ustawic zmiennej.\n"
+msgstr "ERROR! variable set fail.\n"
+
+#: ls-config.c:446 ls-config.c:608 ls-config.c:675
+#, c-format
+msgid "BLAD! Nie okreslono typu zmiennej.\n"
+msgstr "ERROR! variable type not given.\n"
+
+#: ls-config.c:461 ls-config.c:629 ls-config.c:701
+#, c-format
+msgid "BLAD! Niedozwolony typ zmiennej.\n"
+msgstr "ERROR! Unknown variable type.\n"
+
+#: ls-config.c:667 ls-config.c:711
 #, c-format
 msgid "Dodano pozycje: %d\n"
 msgstr "Position: %d has been added.\n"
 
-#: ls-config.c:621
+#: ls-config.c:680
 #, c-format
 msgid "BLAD! Bledna nazwa zmiennej konfiguracyjnej.\n"
 msgstr "ERROR! invalid name of configuration variable.\n"
 
-#: ls-config.c:663 ls-config.c:712
+#: ls-config.c:722 ls-config.c:771
 #, c-format
 msgid "BLAD! Zapisu pliku konfiguracyjnego.\n"
 msgstr "ERROR! writeing configuration file.\n"
 
-#: ls-config.c:688 ls-config.c:749
+#: ls-config.c:736 ls-config.c:798 ls-config.c:1221
+#, c-format
+msgid "BLAD! Nie mozna otworzyc pliku konfiguracyjnego.\n"
+msgstr "ERROR! can't open configuration file.\n"
+
+#: ls-config.c:741
+#, c-format
+msgid "BLAD! Nie podano sciezki zmiennej.\n"
+msgstr "ERROR! variable path not given.\n"
+
+#: ls-config.c:747 ls-config.c:808
 #, c-format
 msgid "BLAD! Nie odnaleziono poszukiwanej konfiguracji.\n"
 msgstr "ERROR! searched configuration not found.\n"
 
-#: ls-config.c:694
+#: ls-config.c:753
 #, c-format
 msgid "BLAD! Nie mozna usunac glownego elementu.\n"
 msgstr "ERROR! root element cannot be removed.\n"
 
-#: ls-config.c:700
+#: ls-config.c:759
 #, c-format
 msgid "BLAD! Nie mozna znalezc elementu nadrzednego.\n"
 msgstr "ERROR! parent element cennot be found.\n"
 
-#: ls-config.c:706
+#: ls-config.c:765
 #, c-format
 msgid "BLAD! Nie udalo sie usunac elementu.\n"
 msgstr "ERROR! unsetting element fail.\n"
 
-#: ls-config.c:971
+#: ls-config.c:1030
 #, c-format
 msgid "Nazwa zmiennej:   %s\n"
 msgstr "Variable name:  %s\n"
 
-#: ls-config.c:974
+#: ls-config.c:1033
 #, c-format
 msgid "Typ zmiennej:     %s\n"
 msgstr "Variable type:  %s\n"
 
-#: ls-config.c:977
+#: ls-config.c:1036
 #, c-format
 msgid "Wartosc zmiennej: %s\n"
 msgstr "Variable value: %s\n"
 
-#: ls-config.c:980
+#: ls-config.c:1039
 #, c-format
 msgid "Index zmiennej:   %d\n"
 msgstr "Variable index: %d\n"
 
-#: ls-config.c:983
+#: ls-config.c:1042
 #, c-format
 msgid "Ilosc zmiennych:  %d\n"
 msgstr "Count variable: %d\n"
 
-#: ls-config.c:1168
+#: ls-config.c:1227
 #, c-format
 msgid "BLAD! Nie okreslono sciezki zmiennej.\n"
 msgstr "ERROR! variable path not found.\n"
+
+#~ msgid "BLAD! Nowa nazwe zmiennej mozna dodac tylko do grupy.\n"
+#~ msgstr "ERROR! New variable name can be added only to group.\n"
+
+#~ msgid "BLAD! Bledna sciezka zmiennej.\n"
+#~ msgstr "ERROR! invalid variable path.\n"
+
+#~ msgid "BLAD! Nie podano wartosci zmiennej.\n"
+#~ msgstr "ERROR! variable value not given.\n"
+
+#~ msgid "BLAD! Bledny format danych.\n"
+#~ msgstr "ERROR! Invalid data format.\n"
