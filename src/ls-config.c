@@ -14,7 +14,7 @@
 #include <libconfig.h>
 
 #define PACKAGE    "LS bash config"
-#define VERSION    "0.0.1"
+#define VERSION    "1.0.1"
 
 // global flags
 struct flags {
@@ -22,12 +22,12 @@ struct flags {
 	int names; //set for printout config variables names
 	int types; //set for printout config variables types
 	int values; //set for printout config variables values
-	int indexes;
-	int counter;
+	int indexes; //set for printout config variables indexes
+	int counter; //set for printout config varibales counting (for grout, list, array. in other cases it return 1)
 	int unset; //unset valriable
 	int boolstring; //set for output bool variable (0|1) as test (false|true)
-	int mode;
-	int error;
+	int mode; //1 - for setting variable, 0 - for get hist data
+	int error; //error status handling
 };
 
 //take valur from input and comvert it to int
@@ -828,42 +828,56 @@ int unset_config(char *configFile, char *dataPath, struct flags optflags) {
 	return 0;
 };
 
+//get configuratioin variable
+//(read it from configuration file)
+//@return char* variable value
+//@param char* configFile - configuration file name (with path)
+//@param cher* dataPath - configuration variable path (in file)
+//@param struct flags optflags - global flags
 int read_config(char *configFile, char *dataPath, struct flags optflags) {
-	config_t cfg;
-	config_setting_t *setting, *ss;
-	config_init(&cfg);
-	int comaset, varindex, varcounter;
-	unsigned int maxel, i;
-	char buffer[256];
-	const char *cbuffer;
-	const char *coma=";";
-	int ibuffer, ssize;
-	char *dataName, *dataTypeName, *dataValueString;
-	int dataType, st;
+	config_t cfg; //configuration file handler
+	config_setting_t *setting, *ss; //configuration element handler, and helper handler (config element too)
+	int comaset, varindex, varcounter; //helper flat for buid output strings, varibale index, counter
+	unsigned int maxel, i; //max elements, and loop index
+	char buffer[256]; //reading buffer
+	const char *cbuffer;	
+	const char *coma=";"; //output string variable separator
+	int ibuffer, ssize; //value int buffer
+	char *dataName, *dataTypeName, *dataValueString; //name of variable, type of variable, value of variable
+	int dataType, st; //internale variable type
+	//initialize values
 	dataValueString = malloc(1);
 	dataTypeName = malloc(1);
 	memset(dataValueString, 0, 1);
 	memset(dataTypeName, 0, 1);
 	varindex = 0;
 	varcounter = 0;
+	//open and read configuration file
+	config_init(&cfg);
 	if(!config_read_file(&cfg, configFile)) {
   		config_destroy(&cfg);
-		if(optflags.quiet == 0) printf(gettext("BLAD! Nie mozna otworzyc pliku konfiguracyjnego.\n"));
+		if(optflags.quiet == 0) printf(gettext("ERROR! Can't read configuration file.\n"));
   		return 1;
  	};
+	//now find variable element of given path
 	if(dataPath == NULL) {
+		//if path not givne load root element (default)
 		setting = config_root_setting(&cfg);
 	} else {
 		setting = config_lookup(&cfg, dataPath);
 	};
 	if(setting == NULL) {
   		config_destroy(&cfg);
-		if(optflags.quiet == 0) printf(gettext("BLAD! Nie odnaleziono poszukiwanej konfiguracji.\n"));
+		if(optflags.quiet == 0) printf(gettext("ERROR! Given variable path not found.\n"));
   		return 3;
  	};
+	//read variable name
 	dataName = config_setting_name(setting);
-	if(dataName == NULL) dataName = "NULL";
+	if(dataName == NULL) dataName = "NULL"; //in case variable have no name convert to string representation
+	//read variable type
 	dataType = config_setting_type(setting);	
+	//next conver type to human readable and read variable value based on his type
+	//and in cases in type not scalar read index and coutn variables
 	switch(dataType) {
 		case CONFIG_TYPE_INT:
 			dataTypeName = (char*)realloc(dataTypeName, 4*sizeof(char));
@@ -897,6 +911,7 @@ int read_config(char *configFile, char *dataPath, struct flags optflags) {
 			dataTypeName = (char*)realloc(dataTypeName, 5*sizeof(char));
 			strcpy(dataTypeName, "bool");
 			if(optflags.boolstring == 1) {
+				//if expect bool as string, convert it to human readable
 				ibuffer = config_setting_get_bool(setting); 
 				if(ibuffer == CONFIG_TRUE) {
 					dataValueString = (char*)realloc(dataValueString, 5*sizeof(char));
@@ -906,6 +921,7 @@ int read_config(char *configFile, char *dataPath, struct flags optflags) {
 					strcpy(dataValueString, "false");
 				}
 			} else {
+					//else output as digit
 					sprintf(buffer, "%d", config_setting_get_bool(setting));
 					dataValueString = (char*)realloc(dataValueString, (strlen(buffer)+1)*sizeof(char));
 					strcpy(dataValueString, buffer);
@@ -914,9 +930,12 @@ int read_config(char *configFile, char *dataPath, struct flags optflags) {
 		case CONFIG_TYPE_ARRAY:
 			dataTypeName = (char*)realloc(dataTypeName, 6*sizeof(char));
 			strcpy(dataTypeName, "array");
+			//get element count 
 			maxel = (unsigned int)config_setting_length(setting);
 			comaset = 0;
+			//and loop over all elements
 			for(i = 0; i < maxel; i++) {
+				//get element
 				ss = config_setting_get_elem(setting, i);
 				if(ss != NULL) {
 					st = config_setting_type(ss);
@@ -950,6 +969,7 @@ int read_config(char *configFile, char *dataPath, struct flags optflags) {
 							if(optflags.boolstring == 1) {
 								ibuffer = config_setting_get_bool(ss); 
 								if(ibuffer == CONFIG_TRUE) {
+									//if bool must be outputed as humen readable - convert it
 									dataValueString = (char*)realloc(dataValueString, (strlen(dataValueString)+4+2)*sizeof(char));
 									if(comaset == 1) strcat(dataValueString, coma);
 									strcat(dataValueString, "true");
@@ -959,6 +979,7 @@ int read_config(char *configFile, char *dataPath, struct flags optflags) {
 									strcat(dataValueString, "false");
 								}
 							} else {
+								//else output as digit
 								sprintf(buffer, "%d", config_setting_get_bool(ss));
 								dataValueString = (char*)realloc(dataValueString, (strlen(dataValueString)+strlen(buffer)+2)*sizeof(char));
 								if(comaset == 1) strcat(dataValueString, coma);
@@ -966,16 +987,19 @@ int read_config(char *configFile, char *dataPath, struct flags optflags) {
 							};
 						break;
 						case CONFIG_TYPE_ARRAY:
+								//if array contains array output as kwyword ARRAY
 								dataValueString = (char*)realloc(dataValueString, (strlen(dataValueString)+7)*sizeof(char));
 								if(comaset == 1) strcat(dataValueString, coma);
 								strcat(dataValueString, "ARRAY");
 						break;
 						case CONFIG_TYPE_LIST:
+								//if array contains list output as keyword LIST
 								dataValueString = (char*)realloc(dataValueString, (strlen(dataValueString)+6)*sizeof(char));
 								if(comaset == 1) strcat(dataValueString, coma);
 								strcat(dataValueString, "LIST");
 						break;
 						case CONFIG_TYPE_GROUP:
+								//if array contains group output as keywort GROUP
 								dataValueString = (char*)realloc(dataValueString, (strlen(dataValueString)+7)*sizeof(char));
 								if(comaset == 1) strcat(dataValueString, coma);
 								strcat(dataValueString, "GROUP");
@@ -988,7 +1012,9 @@ int read_config(char *configFile, char *dataPath, struct flags optflags) {
 		case CONFIG_TYPE_LIST:
 			dataTypeName = (char*)realloc(dataTypeName, 5*sizeof(char));
 			strcpy(dataTypeName, "list");
+			//get element count
 			maxel = (unsigned int)config_setting_length(setting);
+			//end loop over all elements
 			comaset = 0;
 			for(i = 0; i < maxel; i++) {
 				ss = config_setting_get_elem(setting, i);
@@ -1024,6 +1050,7 @@ int read_config(char *configFile, char *dataPath, struct flags optflags) {
 							if(optflags.boolstring == 1) {
 								ibuffer = config_setting_get_bool(ss); 
 								if(ibuffer == CONFIG_TRUE) {
+									//if bool must be printout as humanreadable - convert it
 									dataValueString = (char*)realloc(dataValueString, (strlen(dataValueString)+4+2)*sizeof(char));
 									if(comaset == 1) strcat(dataValueString, coma);
 									strcat(dataValueString, "true");
@@ -1033,6 +1060,7 @@ int read_config(char *configFile, char *dataPath, struct flags optflags) {
 									strcat(dataValueString, "false");
 								}
 							} else {
+								//else output as int
 								sprintf(buffer, "%d", config_setting_get_bool(ss));
 								dataValueString = (char*)realloc(dataValueString, (strlen(dataValueString)+strlen(buffer)+2)*sizeof(char));
 								if(comaset == 1) strcat(dataValueString, coma);
@@ -1040,16 +1068,19 @@ int read_config(char *configFile, char *dataPath, struct flags optflags) {
 							};
 						break;
 						case CONFIG_TYPE_ARRAY:
+								//if list contain array output as keyword ARRAY
 								dataValueString = (char*)realloc(dataValueString, (strlen(dataValueString)+7)*sizeof(char));
 								if(comaset == 1) strcat(dataValueString, coma);
 								strcat(dataValueString, "ARRAY");
 						break;
 						case CONFIG_TYPE_LIST:
+								//if list contain list output as keyword LIST
 								dataValueString = (char*)realloc(dataValueString, (strlen(dataValueString)+6)*sizeof(char));
 								if(comaset == 1) strcat(dataValueString, coma);
 								strcat(dataValueString, "LIST");
 						break;
 						case CONFIG_TYPE_GROUP:
+								//if list contain group output as keyword GROUP
 								dataValueString = (char*)realloc(dataValueString, (strlen(dataValueString)+7)*sizeof(char));
 								if(comaset == 1) strcat(dataValueString, coma);
 								strcat(dataValueString, "GROUP");
@@ -1062,7 +1093,10 @@ int read_config(char *configFile, char *dataPath, struct flags optflags) {
 		case CONFIG_TYPE_GROUP:
 			dataTypeName = (char*)realloc(dataTypeName, 6*sizeof(char));
 			strcpy(dataTypeName, "group");
+			//get elementc count
 			maxel = (unsigned int)config_setting_length(setting);
+			//and loop over all elements
+			//but in group case, we return inside variables names
 			comaset = 0;
 			for(i = 0; i < maxel; i++) {
 				ss = config_setting_get_elem(setting, i);
@@ -1077,22 +1111,24 @@ int read_config(char *configFile, char *dataPath, struct flags optflags) {
 			break;
 	};
 
+	//last we get readed variable index, and element count
 	varindex = config_setting_index(setting);
 	varcounter = config_setting_length(setting);
 
-	if(optflags.names == 1 && optflags.quiet == 0) printf(gettext("Nazwa zmiennej:   %s\n"), dataName);
+	//and finaly output data
+	if(optflags.names == 1 && optflags.quiet == 0) printf(gettext("Variable name:           %s\n"), dataName);
 	if(optflags.names == 1 && optflags.quiet == 1) printf("%s", dataName);
 	if((optflags.types == 1 && optflags.quiet == 1) && optflags.names == 1) printf(":");
-	if(optflags.types == 1 && optflags.quiet == 0) printf(gettext("Typ zmiennej:     %s\n"), dataTypeName);
+	if(optflags.types == 1 && optflags.quiet == 0) printf(gettext("Variable type:           %s\n"), dataTypeName);
 	if(optflags.types == 1 && optflags.quiet == 1) printf("%s", dataTypeName);
 	if((optflags.values == 1 && optflags.quiet == 1) && (optflags.names == 1 || optflags.types == 1)) printf(":");
-	if(optflags.values == 1 && optflags.quiet == 0) printf(gettext("Wartosc zmiennej: %s\n"), dataValueString);
+	if(optflags.values == 1 && optflags.quiet == 0) printf(gettext("Variable value:          %s\n"), dataValueString);
 	if(optflags.values == 1 && optflags.quiet == 1) printf("%s", dataValueString);
 	if((optflags.indexes == 1 && optflags.quiet == 1) && (optflags.names == 1 || optflags.types == 1 || optflags.values == 1)) printf(":");
-	if(optflags.indexes == 1 && optflags.quiet == 0) printf(gettext("Index zmiennej:   %d\n"), varindex);
+	if(optflags.indexes == 1 && optflags.quiet == 0) printf(gettext("Variable index:          %d\n"), varindex);
 	if(optflags.indexes == 1 && optflags.quiet == 1) printf("%d", varindex);
 	if((optflags.counter == 1 && optflags.quiet == 1) && (optflags.names == 1 || optflags.types == 1 || optflags.values == 1 || optflags.indexes == 1)) printf(":");
-	if(optflags.counter == 1 && optflags.quiet == 0) printf(gettext("Ilosc zmiennych:  %d\n"), varcounter);
+	if(optflags.counter == 1 && optflags.quiet == 0) printf(gettext("Variable elements count: %d\n"), varcounter);
 	if(optflags.counter == 1 && optflags.quiet == 1) printf("%d", varcounter);
 	if(optflags.quiet == 1) printf("\n");
 	
@@ -1101,18 +1137,23 @@ int read_config(char *configFile, char *dataPath, struct flags optflags) {
 }
 
 int main(int argc, char **argv) {
+	//firs set locale and domain to work with internationalization
 	setlocale(LC_ALL, "");
 	bindtextdomain("lslib-config", "/usr/share/locale");
 	textdomain("lslib-config");
 
-   int opt,test;
-	int fd;
-	char *sinp, *dataPath=NULL, *dataString=NULL, *dataType=NULL;
-	char *configFile=NULL;
-   struct flags optflags = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+	//then declare and init values
+   int opt,test; //used for read innput: option, and testing
+	int fd; //file descriptor
+	char *sinp, *dataPath=NULL, *dataString=NULL, *dataType=NULL; //string input, configuration variable path, input data, variable type
+	char *configFile=NULL; //config file name (with path)
+   struct flags optflags = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; //global flags initialize
+	int excode; //program exit code
+	excode = 0;
 
 	sinp = malloc(sizeof(char) * 256);
 
+	//long options reading
 	struct option long_options[] = {
 		/* These options set a flag. */
 		{"quiet",   no_argument, &optflags.quiet, 1},
@@ -1134,6 +1175,7 @@ int main(int argc, char **argv) {
 		{0, 0, 0, 0}
 	};
 
+	//next collect all input (given as options to program)
 	while(1) {
 		int option_index = 0;
 		opt = getopt_long (argc, argv, "qntvicubs:g:d:p:hf:", long_options, &option_index);
@@ -1245,8 +1287,9 @@ int main(int argc, char **argv) {
 				}; 
 				break;
 			case 'h':
+				//free input buffer and printout help message 
 				free(sinp);
-				printHelp();
+				printHelp(); //this function contain exit from program
 				break;
 			case 'f':
 				test = sscanf(optarg, "%[^\n]s", sinp);
@@ -1262,6 +1305,7 @@ int main(int argc, char **argv) {
 		}
 	};
 
+	//first of all we must ensure, then configuration file are available with right access mode
 	if(optflags.mode == 0 && access(configFile, R_OK) < 0) optflags.error = 1;
 	if(optflags.mode == 1) {
 		fd = open(configFile, O_RDWR | O_CREAT, S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH);
@@ -1271,30 +1315,33 @@ int main(int argc, char **argv) {
 		close(fd);
    };
 	if(optflags.error > 0) {
-		if(optflags.quiet == 0) printf(gettext("BLAD! Nie mozna otworzyc pliku konfiguracyjnego.\n"));
+		if(optflags.quiet == 0) printf(gettext("ERROR! Can't read configuration file.\n"));
 		free(sinp);
 		free(configFile);
 		exit(1);
    };
+
+	//now if we want to set variable, we must have his path
    if(optflags.mode == 1 && dataPath == NULL) {
-		if(optflags.quiet == 0) printf(gettext("BLAD! Nie okreslono sciezki zmiennej.\n"));
+		if(optflags.quiet == 0) printf(gettext("ERROR! Conviguration variable path not given.\n"));
 		free(sinp);
 		free(configFile);
 		exit(1);
    };
+
+	//if no output data requested, set to default output
 	if(optflags.names == 0 && optflags.types == 0 && optflags.values == 0 && optflags.indexes == 0 && optflags.counter == 0) {
 		optflags.names = 1;
 		optflags.types = 1;
 		optflags.values = 1;
 	};
 
-	int excode;
-	excode = 0;
-
+	//now we invode main work of this software based on request type (set, unset of get)
 	if(optflags.mode == 0) excode = read_config(configFile, dataPath, optflags);
 	if(optflags.mode == 1 && optflags.unset == 1) excode = unset_config(configFile, dataPath, optflags);
 	if(optflags.mode == 1 && optflags.unset == 0) excode = set_config(configFile, dataPath, optflags, dataString, dataType);
 
+	//then finalize free resources and exit returnig excode
 	free(sinp);
 	free(configFile);
 	exit(excode);

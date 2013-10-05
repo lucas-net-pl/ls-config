@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-10-05 11:47+0200\n"
+"POT-Creation-Date: 2013-10-05 12:51+0200\n"
 "PO-Revision-Date: 2013-09-09 23:56+0200\n"
 "Last-Translator: Łukasz A. Grabowski <lucas@lucas.net.pl>\n"
 "Language-Team: Language en-GB\n"
@@ -180,12 +180,12 @@ msgstr "ERROR! Incorrect data format.\n"
 msgid "ERROR! Variable set failed.\n"
 msgstr "ERROR! Variable set failed.\n"
 
-#: ls-config.c:272 ls-config.c:783
+#: ls-config.c:272 ls-config.c:783 ls-config.c:859 ls-config.c:1318
 #, c-format
 msgid "ERROR! Can't read configuration file.\n"
 msgstr "ERROR! Can't read configuration file.\n"
 
-#: ls-config.c:279 ls-config.c:789
+#: ls-config.c:279 ls-config.c:789 ls-config.c:1326
 #, c-format
 msgid "ERROR! Conviguration variable path not given.\n"
 msgstr "ERROR! Conviguration variable path not given.\n"
@@ -244,13 +244,13 @@ msgstr "ERROR! Bad name of configuration variable.\n"
 msgid "ERROR! Configuration file write failed.\n"
 msgstr "ERROR! Configuration file write failed.\n"
 
-#: ls-config.c:796
+#: ls-config.c:796 ls-config.c:871
 #, c-format
 msgid "ERROR! Given variable path not found.\n"
 msgstr "ERROR! Given variable path not found.\n"
 
 #: ls-config.c:803
-#,  c-format
+#, c-format
 msgid "ERROR! Can't remove root element.\n"
 msgstr "ERROR! Can't remove root element.\n"
 
@@ -264,43 +264,28 @@ msgstr "ERROR! Can't find parent element.\n"
 msgid "ERROR! Variable unset failed.\n"
 msgstr "ERROR! Variable unset failed.\n"
 
-#: ls-config.c:851 ls-config.c:1274
+#: ls-config.c:1119
 #, c-format
-msgid "BLAD! Nie mozna otworzyc pliku konfiguracyjnego.\n"
-msgstr "ERROR! can't open configuration file.\n"
+msgid "Variable name:           %s\n"
+msgstr "Variable name:           %s\n"
 
-#: ls-config.c:861
+#: ls-config.c:1122
 #, c-format
-msgid "BLAD! Nie odnaleziono poszukiwanej konfiguracji.\n"
-msgstr "ERROR! searched configuration not found.\n"
+msgid "Variable type:           %s\n"
+msgstr "Variable type:           %s\n"
 
-#: ls-config.c:1083
+#: ls-config.c:1125
 #, c-format
-msgid "Nazwa zmiennej:   %s\n"
-msgstr "Variable name:  %s\n"
+msgid "Variable value:          %s\n"
+msgstr "Variable value:          %s\n"
 
-#: ls-config.c:1086
+#: ls-config.c:1128
 #, c-format
-msgid "Typ zmiennej:     %s\n"
-msgstr "Variable type:  %s\n"
+msgid "Variable index:          %d\n"
+msgstr "Variable index:          %d\n"
 
-#: ls-config.c:1089
+#: ls-config.c:1131
 #, c-format
-msgid "Wartosc zmiennej: %s\n"
-msgstr "Variable value: %s\n"
-
-#: ls-config.c:1092
-#, c-format
-msgid "Index zmiennej:   %d\n"
-msgstr "Variable index: %d\n"
-
-#: ls-config.c:1095
-#, c-format
-msgid "Ilosc zmiennych:  %d\n"
-msgstr "Count variable: %d\n"
-
-#: ls-config.c:1280
-#, c-format
-msgid "BLAD! Nie okreslono sciezki zmiennej.\n"
-msgstr "ERROR! variable path not found.\n"
+msgid "Variable elements count: %d\n"
+msgstr "Variable elements count: %d\n"
 
