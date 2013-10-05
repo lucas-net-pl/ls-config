@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-10-01 23:10+0200\n"
+"POT-Creation-Date: 2013-10-05 11:47+0200\n"
 "PO-Revision-Date: 2013-09-09 23:55+0200\n"
 "Last-Translator: Łukasz A. Grabowski <lucas@lucas.net.pl>\n"
 "Language-Team: Language pl-PL\n"
@@ -174,17 +174,21 @@ msgid "ERROR! Incorrect data format.\n"
 msgstr "BŁĄD! Błędny format danych.\n"
 
 #: ls-config.c:110 ls-config.c:133 ls-config.c:156 ls-config.c:179
-#: ls-config.c:346 ls-config.c:364
+#: ls-config.c:346 ls-config.c:364 ls-config.c:431 ls-config.c:477
+#: ls-config.c:507 ls-config.c:535 ls-config.c:542 ls-config.c:556
+#: ls-config.c:563 ls-config.c:577 ls-config.c:584 ls-config.c:598
+#: ls-config.c:605 ls-config.c:619 ls-config.c:626 ls-config.c:666
+#: ls-config.c:685 ls-config.c:743
 #, c-format
 msgid "ERROR! Variable set failed.\n"
 msgstr "BŁĄD! Nie udało sią ustawić zmiennej.\n"
 
-#: ls-config.c:272
+#: ls-config.c:272 ls-config.c:783
 #, c-format
 msgid "ERROR! Can't read configuration file.\n"
 msgstr "BŁĄD! Nie można odczytać pliku konfiguracyjnego.\n"
 
-#: ls-config.c:279
+#: ls-config.c:279 ls-config.c:789
 #, c-format
 msgid "ERROR! Conviguration variable path not given.\n"
 msgstr "BŁĄD! Nie podano ścieżki zmiennej konfiguracyjnej.\n"
@@ -206,123 +210,100 @@ msgid ""
 msgstr ""
 "BŁĄD! Nowa nazwana zmienna konfiguracyjne może być dodana tylko do grupy.\n"
 
-#: ls-config.c:316
+#: ls-config.c:316 ls-config.c:454 ls-config.c:638 ls-config.c:709
 #, c-format
 msgid "ERROR! Configuration variable type not given.\n"
 msgstr "BŁĄD! Nie podano typu zmiennej konfiguracyjnej.\n"
 
-#: ls-config.c:339
+#: ls-config.c:339 ls-config.c:659 ls-config.c:736
 #, c-format
 msgid "ERROR! Inlegal data type.\n"
 msgstr "BŁĄD! Niepoprawny typ zmiennej.\n"
 
-#: ls-config.c:384 ls-config.c:396 ls-config.c:408 ls-config.c:420
-#: ls-config.c:433 ls-config.c:514 ls-config.c:532 ls-config.c:550
-#: ls-config.c:568 ls-config.c:587
+#: ls-config.c:385 ls-config.c:398 ls-config.c:411 ls-config.c:424
+#: ls-config.c:438 ls-config.c:528 ls-config.c:549 ls-config.c:570
+#: ls-config.c:591 ls-config.c:612
 #, c-format
-msgid "BLAD! Niezgodny typ zmiennej.\n"
-msgstr "BŁĄD! Niezgodny typ zmiennej.\n"
+msgid "ERROR! inconsistent value type.\n"
+msgstr "BŁĄD! niezgodny typ vartości.\n"
 
-#: ls-config.c:426 ls-config.c:467 ls-config.c:496 ls-config.c:520
-#: ls-config.c:538 ls-config.c:556 ls-config.c:574 ls-config.c:580
-#: ls-config.c:593 ls-config.c:635 ls-config.c:653 ls-config.c:707
+#: ls-config.c:470
 #, c-format
-msgid "BLAD! Nie udalo sie ustawic zmiennej.\n"
-msgstr "BŁĄD! Nie udało sią ustawić zmiennej.\n"
+msgid "ERROR! Prohibited data type.\n"
+msgstr "BŁĄD! Zabronionny typ danych.\n"
 
-#: ls-config.c:446 ls-config.c:608 ls-config.c:675
+#: ls-config.c:700 ls-config.c:750
 #, c-format
-msgid "BLAD! Nie okreslono typu zmiennej.\n"
-msgstr "BŁĄD! Nie określono typu zmiennej.\n"
+msgid "Added element index: %d\n"
+msgstr "Indeks dodanego elementu: %d\n"
 
-#: ls-config.c:461 ls-config.c:629 ls-config.c:701
+#: ls-config.c:714
 #, c-format
-msgid "BLAD! Niedozwolony typ zmiennej.\n"
-msgstr "BŁĄD! Niedozwolony typ zmiennej.\n"
-
-#: ls-config.c:667 ls-config.c:711
-#, c-format
-msgid "Dodano pozycje: %d\n"
-msgstr "Dodano pozycję: %d\n"
-
-#: ls-config.c:680
-#, c-format
-msgid "BLAD! Bledna nazwa zmiennej konfiguracyjnej.\n"
+msgid "ERROR! Bad name of configuration variable.\n"
 msgstr "BŁĄD! Błędna nazwa zmiennej konfiguracyjnej.\n"
 
-#: ls-config.c:722 ls-config.c:771
+#: ls-config.c:762 ls-config.c:824
 #, c-format
-msgid "BLAD! Zapisu pliku konfiguracyjnego.\n"
-msgstr "BŁĄD! Zapisu pliku konfiguracyjnego.\n"
+msgid "ERROR! Configuration file write failed.\n"
+msgstr "BŁĄD! Nie udało się zapisać pliku konfiguracyjnego.\n"
 
-#: ls-config.c:736 ls-config.c:798 ls-config.c:1221
+#: ls-config.c:796
+#, c-format
+msgid "ERROR! Given variable path not found.\n"
+msgstr "BŁĄD! Nie odnaleziono zmiennej konfiguracyjnej o podanej ścieżce.\n"
+
+#: ls-config.c:803
+#, c-format
+msgid "ERROR! Can't remove root element.\n"
+msgstr "BŁĄD! Nie można usunąć głównego elementu.\n"
+
+#: ls-config.c:810
+#, c-format
+msgid "ERROR! Can't find parent element.\n"
+msgstr "BŁĄD! Nie można odnaleźć elementu nadrzędnego.\n"
+
+#: ls-config.c:817
+#, c-format
+msgid "ERROR! Variable unset failed.\n"
+msgstr "BŁĄD! Nie udało sią usunąć zmiennej.\n"
+
+#: ls-config.c:851 ls-config.c:1274
 #, c-format
 msgid "BLAD! Nie mozna otworzyc pliku konfiguracyjnego.\n"
 msgstr "BŁĄD! Nie można otworzyć pliku konfiguracyjnego.\n"
 
-#: ls-config.c:741
-#, c-format
-msgid "BLAD! Nie podano sciezki zmiennej.\n"
-msgstr "BŁĄD! Nie podano ścieżki zmiennej.\n"
-
-#: ls-config.c:747 ls-config.c:808
+#: ls-config.c:861
 #, c-format
 msgid "BLAD! Nie odnaleziono poszukiwanej konfiguracji.\n"
 msgstr "BĄDD! Nie odnalexiono poszukiwanej konfiguracji.\n"
 
-#: ls-config.c:753
-#, c-format
-msgid "BLAD! Nie mozna usunac glownego elementu.\n"
-msgstr "BŁĄD! Nie można usunąć głównego elementu.\n"
-
-#: ls-config.c:759
-#, c-format
-msgid "BLAD! Nie mozna znalezc elementu nadrzednego.\n"
-msgstr "BŁĄD! Nie można znaleźć elementu nadrzędnego.\n"
-
-#: ls-config.c:765
-#, c-format
-msgid "BLAD! Nie udalo sie usunac elementu.\n"
-msgstr "BŁĄD! Nie udało się usunąć elementu.\n"
-
-#: ls-config.c:1030
+#: ls-config.c:1083
 #, c-format
 msgid "Nazwa zmiennej:   %s\n"
 msgstr "Nazwa zmiennej:   %s\n"
 
-#: ls-config.c:1033
+#: ls-config.c:1086
 #, c-format
 msgid "Typ zmiennej:     %s\n"
 msgstr "Typ zmiennej:     %s\n"
 
-#: ls-config.c:1036
+#: ls-config.c:1089
 #, c-format
 msgid "Wartosc zmiennej: %s\n"
 msgstr "Wartość zmiennej: %s\n"
 
-#: ls-config.c:1039
+#: ls-config.c:1092
 #, c-format
 msgid "Index zmiennej:   %d\n"
 msgstr "Indeks zmiennej:  %d\n"
 
-#: ls-config.c:1042
+#: ls-config.c:1095
 #, c-format
 msgid "Ilosc zmiennych:  %d\n"
 msgstr "Ilosc zmiennych: %d\n"
 
-#: ls-config.c:1227
+#: ls-config.c:1280
 #, c-format
 msgid "BLAD! Nie okreslono sciezki zmiennej.\n"
 msgstr "BŁĄD! Nie określono ścieżki zmiennej.\n"
 
-#~ msgid "BLAD! Nowa nazwe zmiennej mozna dodac tylko do grupy.\n"
-#~ msgstr "BŁĄD! Nową nazwe zmiennej można dodać tylko do grupy.\n"
-
-#~ msgid "BLAD! Bledna sciezka zmiennej.\n"
-#~ msgstr "BŁĄD! Błędna ścieżka zmiennej.\n"
-
-#~ msgid "BLAD! Nie podano wartosci zmiennej.\n"
-#~ msgstr "BŁĄD! Nie podano wartości zmiennej.\n"
-
-#~ msgid "BLAD! Bledny format danych.\n"
-#~ msgstr "BŁĄD! Błędny format danych.\n"

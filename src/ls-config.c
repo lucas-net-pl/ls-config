@@ -376,14 +376,16 @@ int set_config(char *configFile, char *dataPath, struct flags optflags, char *da
       };
 	} else {
 		//but if we found element of given path, try to set his value
+		//first of all determinate type of value
 		dt = config_setting_type(setting);
 		switch(dt) {
 			case CONFIG_TYPE_INT:
 				if(dataType != NULL && strcmp(dataType, "int")) {
 					config_destroy(&cfg);
-					if(optflags.quiet == 0) printf(gettext("BLAD! Niezgodny typ zmiennej.\n"));
+					if(optflags.quiet == 0) printf(gettext("ERROR! inconsistent value type.\n"));
   					return 10;
 				};	
+				//then set value
 				scs = set_config_int(setting, dataString, optflags);
 				if(scs > 0) {
 					config_destroy(&cfg);
@@ -393,9 +395,10 @@ int set_config(char *configFile, char *dataPath, struct flags optflags, char *da
 			case CONFIG_TYPE_INT64:
 				if(dataType != NULL && strcmp(dataType, "int64")) {
 					config_destroy(&cfg);
-					if(optflags.quiet == 0) printf(gettext("BLAD! Niezgodny typ zmiennej.\n"));
+					if(optflags.quiet == 0) printf(gettext("ERROR! inconsistent value type.\n"));
   					return 10;
 				};	
+				//then set value
 				scs = set_config_int64(setting, dataString, optflags);
 				if(scs > 0) {
 					config_destroy(&cfg);
@@ -405,9 +408,10 @@ int set_config(char *configFile, char *dataPath, struct flags optflags, char *da
 			case CONFIG_TYPE_FLOAT:
 				if(dataType != NULL && strcmp(dataType, "float")) {
 					config_destroy(&cfg);
-					if(optflags.quiet == 0) printf(gettext("BLAD! Niezgodny typ zmiennej.\n"));
+					if(optflags.quiet == 0) printf(gettext("ERROR! inconsistent value type.\n"));
   					return 10;
 				};	
+				//then set value
 				scs = set_config_float(setting, dataString, optflags);
 				if(scs > 0) {
 					config_destroy(&cfg);
@@ -417,22 +421,24 @@ int set_config(char *configFile, char *dataPath, struct flags optflags, char *da
 			case CONFIG_TYPE_STRING:
 				if(dataType != NULL && strcmp(dataType, "string")) {
 					config_destroy(&cfg);
-					if(optflags.quiet == 0) printf(gettext("BLAD! Niezgodny typ zmiennej.\n"));
+					if(optflags.quiet == 0) printf(gettext("ERROR! inconsistent value type.\n"));
   					return 10;
 				};	
+				//then set value
 				scs = config_setting_set_string(setting, dataString);
 				if(scs == CONFIG_FALSE) {
 					config_destroy(&cfg);
-					if(optflags.quiet == 0) printf(gettext("BLAD! Nie udalo sie ustawic zmiennej.\n"));
+					if(optflags.quiet == 0) printf(gettext("ERROR! Variable set failed.\n"));
   					return 11;
 				};	
 				break;
 			case CONFIG_TYPE_BOOL:
 				if(dataType != NULL && strcmp(dataType, "bool")) {
 					config_destroy(&cfg);
-					if(optflags.quiet == 0) printf(gettext("BLAD! Niezgodny typ zmiennej.\n"));
+					if(optflags.quiet == 0) printf(gettext("ERROR! inconsistent value type.\n"));
   					return 10;
 				};
+				//then set value
 				scs = set_config_bool(setting, dataString, optflags);
 				if(scs > 0) {
 					config_destroy(&cfg);
@@ -440,10 +446,12 @@ int set_config(char *configFile, char *dataPath, struct flags optflags, char *da
 				};	
 				break;
 			case CONFIG_TYPE_ARRAY:
+				//if array are empty we can set alement of any scalar type
 				if(config_setting_length(setting) == 0) {
+					//but we must have his type
 					if(dataType == NULL) {	
 						config_destroy(&cfg);
-						if(optflags.quiet == 0) printf(gettext("BLAD! Nie okreslono typu zmiennej.\n"));
+						if(optflags.quiet == 0) printf(gettext("ERROR! Configuration variable type not given.\n"));
   						return 13;
 					};
 					if(!strcmp(dataType, "int")) {
@@ -457,16 +465,19 @@ int set_config(char *configFile, char *dataPath, struct flags optflags, char *da
 					} else if(!strcmp(dataType, "bool")) {
 						dattyp = CONFIG_TYPE_BOOL;
 					} else {
+						//only scalar type availabe
 						config_destroy(&cfg);
-						if(optflags.quiet == 0) printf(gettext("BLAD! Niedozwolony typ zmiennej.\n"));
+						if(optflags.quiet == 0) printf(gettext("ERROR! Prohibited data type.\n"));
   						return 14;
 					};
+					//first of all we must add new element to array
 					ss = config_setting_add(setting, NULL, dattyp);
 					if(ss == NULL) {
 						config_destroy(&cfg);
-						if(optflags.quiet == 0) printf(gettext("BLAD! Nie udalo sie ustawic zmiennej.\n"));
+						if(optflags.quiet == 0) printf(gettext("ERROR! Variable set failed.\n"));
   						return 11;
 					};
+					//then based on his type set value
 					switch(dattyp) {
 						case CONFIG_TYPE_INT:
 							scs = set_config_int(ss, dataString, optflags);
@@ -493,7 +504,7 @@ int set_config(char *configFile, char *dataPath, struct flags optflags, char *da
 							scs = config_setting_set_string(ss, dataString);
 							if(scs == CONFIG_FALSE) {
 								config_destroy(&cfg);
-								if(optflags.quiet == 0) printf(gettext("BLAD! Nie udalo sie ustawic zmiennej.\n"));
+								if(optflags.quiet == 0) printf(gettext("ERROR! Variable set failed.\n"));
   								return 11;
 							};
 							break;
@@ -506,96 +517,113 @@ int set_config(char *configFile, char *dataPath, struct flags optflags, char *da
 							break;
 					};
 				} else {
+					//but if we have some element in array, we can add only element of same type
+					//so, because all element in arry must be same type, we get type of first element
+					//and based on it set new element
 					dattyp = config_setting_type(config_setting_get_elem(setting, 0));
 					switch(dattyp) {
 						case CONFIG_TYPE_INT:
 							if(dataType != NULL && strcmp(dataType, "int")) {
 								config_destroy(&cfg);
-								if(optflags.quiet == 0) printf(gettext("BLAD! Niezgodny typ zmiennej.\n"));
+								if(optflags.quiet == 0) printf(gettext("ERROR! inconsistent value type.\n"));
   								return 10;
 							};
+							//add new element
 							ss = config_setting_add(setting, NULL, dattyp);
 							if(ss == NULL) {
 								config_destroy(&cfg);
-								if(optflags.quiet == 0) printf(gettext("BLAD! Nie udalo sie ustawic zmiennej.\n"));
+								if(optflags.quiet == 0) printf(gettext("ERROR! Variable set failed.\n"));
   								return 11;
 							};
+							//then set his value
 							scs = set_config_int(ss, dataString, optflags);
 							if(scs > 0) {
 								config_destroy(&cfg);
+								if(optflags.quiet == 0) printf(gettext("ERROR! Variable set failed.\n"));
 								return scs;
 							};
 							break;
 						case CONFIG_TYPE_INT64:
 							if(dataType != NULL && strcmp(dataType, "int64")) {
 								config_destroy(&cfg);
-								if(optflags.quiet == 0) printf(gettext("BLAD! Niezgodny typ zmiennej.\n"));
+								if(optflags.quiet == 0) printf(gettext("ERROR! inconsistent value type.\n"));
   								return 10;
 							};
+							//add new element
 							ss = config_setting_add(setting, NULL, dattyp);
 							if(ss == NULL) {
 								config_destroy(&cfg);
-								if(optflags.quiet == 0) printf(gettext("BLAD! Nie udalo sie ustawic zmiennej.\n"));
+								if(optflags.quiet == 0) printf(gettext("ERROR! Variable set failed.\n"));
   								return 11;
 							};
+							//then set his value
 							scs = set_config_int64(ss, dataString, optflags);
 							if(scs > 0) {
 								config_destroy(&cfg);
+								if(optflags.quiet == 0) printf(gettext("ERROR! Variable set failed.\n"));
 								return scs;
 							};
 							break;
 						case CONFIG_TYPE_FLOAT:
 							if(dataType != NULL && strcmp(dataType, "float")) {
 								config_destroy(&cfg);
-								if(optflags.quiet == 0) printf(gettext("BLAD! Niezgodny typ zmiennej.\n"));
+								if(optflags.quiet == 0) printf(gettext("ERROR! inconsistent value type.\n"));
   								return 10;
 							};
+							//add new element
 							ss = config_setting_add(setting, NULL, dattyp);
 							if(ss == NULL) {
 								config_destroy(&cfg);
-								if(optflags.quiet == 0) printf(gettext("BLAD! Nie udalo sie ustawic zmiennej.\n"));
+								if(optflags.quiet == 0) printf(gettext("ERROR! Variable set failed.\n"));
   								return 11;
 							};
+							//then set his value
 							scs = set_config_float(ss, dataString, optflags);
 							if(scs > 0) {
 								config_destroy(&cfg);
+								if(optflags.quiet == 0) printf(gettext("ERROR! Variable set failed.\n"));
 								return scs;
 							};
 							break;
 						case CONFIG_TYPE_STRING:
 							if(dataType != NULL && strcmp(dataType, "string")) {
 								config_destroy(&cfg);
-								if(optflags.quiet == 0) printf(gettext("BLAD! Niezgodny typ zmiennej.\n"));
+								if(optflags.quiet == 0) printf(gettext("ERROR! inconsistent value type.\n"));
   								return 10;
 							};
+							//add new element
 							ss = config_setting_add(setting, NULL, dattyp);
 							if(ss == NULL) {
 								config_destroy(&cfg);
-								if(optflags.quiet == 0) printf(gettext("BLAD! Nie udalo sie ustawic zmiennej.\n"));
+								if(optflags.quiet == 0) printf(gettext("ERROR! Variable set failed.\n"));
   								return 11;
 							};
+							//then set his value
 							scs = config_setting_set_string(ss, dataString);
 							if(scs == CONFIG_FALSE) {
 								config_destroy(&cfg);
-								if(optflags.quiet == 0) printf(gettext("BLAD! Nie udalo sie ustawic zmiennej.\n"));
+								if(optflags.quiet == 0) printf(gettext("ERROR! Variable set failed.\n"));
   								return 11;
 							};
 							break;
 						case CONFIG_TYPE_BOOL:
 							if(dataType != NULL && strcmp(dataType, "bool")) {
 								config_destroy(&cfg);
-								if(optflags.quiet == 0) printf(gettext("BLAD! Niezgodny typ zmiennej.\n"));
+								if(optflags.quiet == 0) printf(gettext("ERROR! inconsistent value type.\n"));
   								return 10;
 							};
+							//add new element
 							ss = config_setting_add(setting, NULL, dattyp);
 							if(ss == NULL) {
 								config_destroy(&cfg);
-								if(optflags.quiet == 0) printf(gettext("BLAD! Nie udalo sie ustawic zmiennej.\n"));
+								if(optflags.quiet == 0) printf(gettext("ERROR! Variable set failed.\n"));
   								return 11;
 							};
+							//then set his value
 							scs = set_config_bool(ss, dataString, optflags);
 							if(scs > 0) {
 								config_destroy(&cfg);
+								if(optflags.quiet == 0) printf(gettext("ERROR! Variable set failed.\n"));
 								return scs;
 							};
 							break;
@@ -603,9 +631,11 @@ int set_config(char *configFile, char *dataPath, struct flags optflags, char *da
 				};
 				break;
 			case CONFIG_TYPE_LIST:
+				//in case adding element to list, we can add any type of element
 				if(dataType == NULL) {
+					//but we must konwn his type
 					config_destroy(&cfg);
-					if(optflags.quiet == 0) printf(gettext("BLAD! Nie okreslono typu zmiennej.\n"));
+					if(optflags.quiet == 0) printf(gettext("ERROR! Configuration variable type not given.\n"));
   					return 13;
 				};
 				if(!strcmp(dataType, "int")) {
@@ -626,15 +656,17 @@ int set_config(char *configFile, char *dataPath, struct flags optflags, char *da
 					dattyp = CONFIG_TYPE_GROUP;
 				} else {
 					config_destroy(&cfg);
-					if(optflags.quiet == 0) printf(gettext("BLAD! Niedozwolony typ zmiennej.\n"));
+					if(optflags.quiet == 0) printf(gettext("ERROR! Inlegal data type.\n"));
   					return 14;
 				};
+				//add new element of given type
 				ss = config_setting_add(setting, NULL, dattyp);
 				if(ss == NULL) {
 					config_destroy(&cfg);
-					if(optflags.quiet == 0) printf(gettext("BLAD! Nie udalo sie ustawic zmiennej.\n"));
+					if(optflags.quiet == 0) printf(gettext("ERROR! Variable set failed.\n"));
   					return 11;
 				};
+				//now, based on type, set element value
 				scs = 0;
 				switch(dattyp) {
 					case CONFIG_TYPE_INT:
@@ -650,7 +682,7 @@ int set_config(char *configFile, char *dataPath, struct flags optflags, char *da
 						scs = config_setting_set_string(ss, dataString);
 						if(scs == CONFIG_FALSE) {
 							config_destroy(&cfg);
-							if(optflags.quiet == 0) printf(gettext("BLAD! Nie udalo sie ustawic zmiennej.\n"));
+							if(optflags.quiet == 0) printf(gettext("ERROR! Variable set failed.\n"));
   							return 11;
 						};
 						scs = 0;
@@ -663,23 +695,26 @@ int set_config(char *configFile, char *dataPath, struct flags optflags, char *da
 					config_destroy(&cfg);
   					return scs;
 				};
+				//finaly outpt index of new added element
 				if(optflags.quiet == 0) {
-					printf(gettext("Dodano pozycje: %d\n"), config_setting_index(ss));
+					printf(gettext("Added element index: %d\n"), config_setting_index(ss));
 				} else {
 					printf("%d", config_setting_index(ss));
 				};
 				break;
 			case CONFIG_TYPE_GROUP:
+				//to group we can add any type of element, but we must have his name
 				if(dataType == NULL) {
 					config_destroy(&cfg);
-					if(optflags.quiet == 0) printf(gettext("BLAD! Nie okreslono typu zmiennej.\n"));
+					if(optflags.quiet == 0) printf(gettext("ERROR! Configuration variable type not given.\n"));
   					return 13;
 				};
 				if(strlen(dataString) < 1) {
 					config_destroy(&cfg);
-					if(optflags.quiet == 0) printf(gettext("BLAD! Bledna nazwa zmiennej konfiguracyjnej.\n"));
+					if(optflags.quiet == 0) printf(gettext("ERROR! Bad name of configuration variable.\n"));
   					return 15;
 				};
+				//determinate type of new variable
 				if(!strcmp(dataType, "int")) {
 					dattyp = CONFIG_TYPE_INT;
 				} else if(!strcmp(dataType, "int64")) {
@@ -698,17 +733,21 @@ int set_config(char *configFile, char *dataPath, struct flags optflags, char *da
 					dattyp = CONFIG_TYPE_GROUP;
 				} else {
 					config_destroy(&cfg);
-					if(optflags.quiet == 0) printf(gettext("BLAD! Niedozwolony typ zmiennej.\n"));
+					if(optflags.quiet == 0) printf(gettext("ERROR! Inlegal data type.\n"));
   					return 14;
 				};
+				//then add new alement
 				ss = config_setting_add(setting, dataString, dattyp);
 				if(ss == NULL) {
 					config_destroy(&cfg);
-					if(optflags.quiet == 0) printf(gettext("BLAD! Nie udalo sie ustawic zmiennej.\n"));
+					if(optflags.quiet == 0) printf(gettext("ERROR! Variable set failed.\n"));
   					return 11;
 				};
+				//in case of adding new element to group we not set his value 
+				//(value field of input are used to get variable name)
+				//We only output index of new added element
 				if(optflags.quiet == 0) {
-					printf(gettext("Dodano pozycje: %d\n"), config_setting_index(ss));
+					printf(gettext("Added element index: %d\n"), config_setting_index(ss));
 				} else {
 					printf("%d", config_setting_index(ss));
 				};
@@ -716,59 +755,73 @@ int set_config(char *configFile, char *dataPath, struct flags optflags, char *da
 		};
 	}
 
+	//Finaly write configuration file
 	scs = config_write_file(&cfg, configFile);
 	if(scs == CONFIG_FALSE) {
   		config_destroy(&cfg);
-		if(optflags.quiet == 0) printf(gettext("BLAD! Zapisu pliku konfiguracyjnego.\n"));
+		if(optflags.quiet == 0) printf(gettext("ERROR! Configuration file write failed.\n"));
   		return 8;
  	};
  	config_destroy(&cfg);
 	return 0;
 };
 
+//unset configuration path
+//(remove variable from configuration file)
+//@return int success
+//@param char* configFile - the name (with path) of configuation file
+//@param char* configPath - path to configuration valriable to remove (unset)
+//@param struct flags optflags - global flags
 int unset_config(char *configFile, char *dataPath, struct flags optflags) {
-	config_t cfg;
-	config_setting_t *setting, *par;
+	config_t cfg; //configuration file handler
+	config_setting_t *setting, *par; //configuration valriale handler, and paren variable handler
+	int idx, scs; //index of variable, sucess status
+	//open configuration file
 	config_init(&cfg);
-	int idx, scs;
 	if(!config_read_file(&cfg, configFile)) {
   		config_destroy(&cfg);
-		if(optflags.quiet == 0) printf(gettext("BLAD! Nie mozna otworzyc pliku konfiguracyjnego.\n"));
+		if(optflags.quiet == 0) printf(gettext("ERROR! Can't read configuration file.\n"));
   		return 1;
  	};
+	//chceck if data path given
 	if(dataPath == NULL) {
   		config_destroy(&cfg);
-		if(optflags.quiet == 0) printf(gettext("BLAD! Nie podano sciezki zmiennej.\n"));
+		if(optflags.quiet == 0) printf(gettext("ERROR! Conviguration variable path not given.\n"));
   		return 4;
 	};
+	//now find variable of given path
 	setting = config_lookup(&cfg, dataPath);
 	if(setting == NULL) {
   		config_destroy(&cfg);
-		if(optflags.quiet == 0) printf(gettext("BLAD! Nie odnaleziono poszukiwanej konfiguracji.\n"));
+		if(optflags.quiet == 0) printf(gettext("ERROR! Given variable path not found.\n"));
   		return 3;
  	};
+	//get element index
 	idx = config_setting_index(setting);
 	if(idx < 0) {
   		config_destroy(&cfg);
-		if(optflags.quiet == 0) printf(gettext("BLAD! Nie mozna usunac glownego elementu.\n"));
+		if(optflags.quiet == 0) printf(gettext("ERROR! Can't remove root element.\n"));
   		return 5;
  	};
+	//now find parent element
 	par = config_setting_parent(setting);
 	if(par == NULL) {
   		config_destroy(&cfg);
-		if(optflags.quiet == 0) printf(gettext("BLAD! Nie mozna znalezc elementu nadrzednego.\n"));
+		if(optflags.quiet == 0) printf(gettext("ERROR! Can't find parent element.\n"));
   		return 6;
  	};
+	//then remove element
 	scs = config_setting_remove_elem(par, idx);
 	if(scs == CONFIG_FALSE) {
   		config_destroy(&cfg);
-		if(optflags.quiet == 0) printf(gettext("BLAD! Nie udalo sie usunac elementu.\n"));
+		if(optflags.quiet == 0) printf(gettext("ERROR! Variable unset failed.\n"));
   		return 7;
  	};
+	//Finaly write configuration file
 	scs = config_write_file(&cfg, configFile);
 	if(scs == CONFIG_FALSE) {
   		config_destroy(&cfg);
-		if(optflags.quiet == 0) printf(gettext("BLAD! Zapisu pliku konfiguracyjnego.\n"));
+		if(optflags.quiet == 0) printf(gettext("ERROR! Configuration file write failed.\n"));
   		return 8;
  	};
  	config_destroy(&cfg);
