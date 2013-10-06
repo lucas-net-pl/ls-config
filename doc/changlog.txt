@@ -1,0 +1,21 @@
+Version 1.0.3
+-------------
+
+Fully commented code,
+Startin with documentation
+
+bugfixes
+- fix some badly returned exit codes
+- remove duplicate error messages
+- l10n textdomain corrected
+
+Version 1.0.1
+-------------
+
+Internaly translated tu englich
+
+
+Verison 1.0.0
+-------------
+
+First publicated and working version

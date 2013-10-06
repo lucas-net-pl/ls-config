@@ -14,7 +14,7 @@
 #include <libconfig.h>
 
 #define PACKAGE    "LS bash config"
-#define VERSION    "1.0.1"
+#define VERSION    "1.0.3"
 
 // global flags
 struct flags {
@@ -468,7 +468,7 @@ int set_config(char *configFile, char *dataPath, struct flags optflags, char *da
 						//only scalar type availabe
 						config_destroy(&cfg);
 						if(optflags.quiet == 0) printf(gettext("ERROR! Prohibited data type.\n"));
-  						return 14;
+  						return 18;
 					};
 					//first of all we must add new element to array
 					ss = config_setting_add(setting, NULL, dattyp);
@@ -539,7 +539,6 @@ int set_config(char *configFile, char *dataPath, struct flags optflags, char *da
 							scs = set_config_int(ss, dataString, optflags);
 							if(scs > 0) {
 								config_destroy(&cfg);
-								if(optflags.quiet == 0) printf(gettext("ERROR! Variable set failed.\n"));
 								return scs;
 							};
 							break;
@@ -560,7 +559,6 @@ int set_config(char *configFile, char *dataPath, struct flags optflags, char *da
 							scs = set_config_int64(ss, dataString, optflags);
 							if(scs > 0) {
 								config_destroy(&cfg);
-								if(optflags.quiet == 0) printf(gettext("ERROR! Variable set failed.\n"));
 								return scs;
 							};
 							break;
@@ -581,7 +579,6 @@ int set_config(char *configFile, char *dataPath, struct flags optflags, char *da
 							scs = set_config_float(ss, dataString, optflags);
 							if(scs > 0) {
 								config_destroy(&cfg);
-								if(optflags.quiet == 0) printf(gettext("ERROR! Variable set failed.\n"));
 								return scs;
 							};
 							break;
@@ -623,7 +620,6 @@ int set_config(char *configFile, char *dataPath, struct flags optflags, char *da
 							scs = set_config_bool(ss, dataString, optflags);
 							if(scs > 0) {
 								config_destroy(&cfg);
-								if(optflags.quiet == 0) printf(gettext("ERROR! Variable set failed.\n"));
 								return scs;
 							};
 							break;
@@ -1139,8 +1135,8 @@ int read_config(char *configFile, char *dataPath, struct flags optflags) {
 int main(int argc, char **argv) {
 	//firs set locale and domain to work with internationalization
 	setlocale(LC_ALL, "");
-	bindtextdomain("lslib-config", "/usr/share/locale");
-	textdomain("lslib-config");
+	bindtextdomain("ls-config", "/usr/share/locale");
+	textdomain("ls-config");
 
 	//then declare and init values
    int opt,test; //used for read innput: option, and testing
@@ -1326,7 +1322,7 @@ int main(int argc, char **argv) {
 		if(optflags.quiet == 0) printf(gettext("ERROR! Conviguration variable path not given.\n"));
 		free(sinp);
 		free(configFile);
-		exit(1);
+		exit(4);
    };
 
 	//if no output data requested, set to default output

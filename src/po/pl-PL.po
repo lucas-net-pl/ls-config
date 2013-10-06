@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-10-05 12:51+0200\n"
+"POT-Creation-Date: 2013-10-06 19:23+0200\n"
 "PO-Revision-Date: 2013-09-09 23:55+0200\n"
 "Last-Translator: Łukasz A. Grabowski <lucas@lucas.net.pl>\n"
 "Language-Team: Language pl-PL\n"
@@ -175,20 +175,19 @@ msgstr "BŁĄD! Błędny format danych.\n"
 
 #: ls-config.c:110 ls-config.c:133 ls-config.c:156 ls-config.c:179
 #: ls-config.c:346 ls-config.c:364 ls-config.c:431 ls-config.c:477
-#: ls-config.c:507 ls-config.c:535 ls-config.c:542 ls-config.c:556
-#: ls-config.c:563 ls-config.c:577 ls-config.c:584 ls-config.c:598
-#: ls-config.c:605 ls-config.c:619 ls-config.c:626 ls-config.c:666
-#: ls-config.c:685 ls-config.c:743
+#: ls-config.c:507 ls-config.c:535 ls-config.c:555 ls-config.c:575
+#: ls-config.c:595 ls-config.c:602 ls-config.c:616 ls-config.c:662
+#: ls-config.c:681 ls-config.c:739
 #, c-format
 msgid "ERROR! Variable set failed.\n"
 msgstr "BŁĄD! Nie udało sią ustawić zmiennej.\n"
 
-#: ls-config.c:272 ls-config.c:783 ls-config.c:859 ls-config.c:1318
+#: ls-config.c:272 ls-config.c:779 ls-config.c:855 ls-config.c:1314
 #, c-format
 msgid "ERROR! Can't read configuration file.\n"
 msgstr "BŁĄD! Nie można odczytać pliku konfiguracyjnego.\n"
 
-#: ls-config.c:279 ls-config.c:789 ls-config.c:1326
+#: ls-config.c:279 ls-config.c:785 ls-config.c:1322
 #, c-format
 msgid "ERROR! Conviguration variable path not given.\n"
 msgstr "BŁĄD! Nie podano ścieżki zmiennej konfiguracyjnej.\n"
@@ -210,19 +209,19 @@ msgid ""
 msgstr ""
 "BŁĄD! Nowa nazwana zmienna konfiguracyjne może być dodana tylko do grupy.\n"
 
-#: ls-config.c:316 ls-config.c:454 ls-config.c:638 ls-config.c:709
+#: ls-config.c:316 ls-config.c:454 ls-config.c:634 ls-config.c:705
 #, c-format
 msgid "ERROR! Configuration variable type not given.\n"
 msgstr "BŁĄD! Nie podano typu zmiennej konfiguracyjnej.\n"
 
-#: ls-config.c:339 ls-config.c:659 ls-config.c:736
+#: ls-config.c:339 ls-config.c:655 ls-config.c:732
 #, c-format
 msgid "ERROR! Inlegal data type.\n"
 msgstr "BŁĄD! Niepoprawny typ zmiennej.\n"
 
 #: ls-config.c:385 ls-config.c:398 ls-config.c:411 ls-config.c:424
-#: ls-config.c:438 ls-config.c:528 ls-config.c:549 ls-config.c:570
-#: ls-config.c:591 ls-config.c:612
+#: ls-config.c:438 ls-config.c:528 ls-config.c:548 ls-config.c:568
+#: ls-config.c:588 ls-config.c:609
 #, c-format
 msgid "ERROR! inconsistent value type.\n"
 msgstr "BŁĄD! niezgodny typ vartości.\n"
@@ -232,63 +231,62 @@ msgstr "BŁĄD! niezgodny typ vartości.\n"
 msgid "ERROR! Prohibited data type.\n"
 msgstr "BŁĄD! Zabronionny typ danych.\n"
 
-#: ls-config.c:700 ls-config.c:750
+#: ls-config.c:696 ls-config.c:746
 #, c-format
 msgid "Added element index: %d\n"
 msgstr "Indeks dodanego elementu: %d\n"
 
-#: ls-config.c:714
+#: ls-config.c:710
 #, c-format
 msgid "ERROR! Bad name of configuration variable.\n"
 msgstr "BŁĄD! Błędna nazwa zmiennej konfiguracyjnej.\n"
 
-#: ls-config.c:762 ls-config.c:824
+#: ls-config.c:758 ls-config.c:820
 #, c-format
 msgid "ERROR! Configuration file write failed.\n"
 msgstr "BŁĄD! Nie udało się zapisać pliku konfiguracyjnego.\n"
 
-#: ls-config.c:796 ls-config.c:871
+#: ls-config.c:792 ls-config.c:867
 #, c-format
 msgid "ERROR! Given variable path not found.\n"
 msgstr "BŁĄD! Nie odnaleziono zmiennej konfiguracyjnej o podanej ścieżce.\n"
 
-#: ls-config.c:803
+#: ls-config.c:799
 #, c-format
 msgid "ERROR! Can't remove root element.\n"
 msgstr "BŁĄD! Nie można usunąć głównego elementu.\n"
 
-#: ls-config.c:810
+#: ls-config.c:806
 #, c-format
 msgid "ERROR! Can't find parent element.\n"
 msgstr "BŁĄD! Nie można odnaleźć elementu nadrzędnego.\n"
 
-#: ls-config.c:817
+#: ls-config.c:813
 #, c-format
 msgid "ERROR! Variable unset failed.\n"
 msgstr "BŁĄD! Nie udało sią usunąć zmiennej.\n"
 
-#: ls-config.c:1119
+#: ls-config.c:1115
 #, c-format
 msgid "Variable name:           %s\n"
 msgstr "Nazwa zmiennej:           %s\n"
 
-#: ls-config.c:1122
+#: ls-config.c:1118
 #, c-format
 msgid "Variable type:           %s\n"
 msgstr "Typ zmiennej:             %s\n"
 
-#: ls-config.c:1125
+#: ls-config.c:1121
 #, c-format
 msgid "Variable value:          %s\n"
 msgstr "Wartość zmiennej:         %s\n"
 
-#: ls-config.c:1128
+#: ls-config.c:1124
 #, c-format
 msgid "Variable index:          %d\n"
 msgstr "Index zmiennej:           %d\n"
 
-#: ls-config.c:1131
+#: ls-config.c:1127
 #, c-format
 msgid "Variable elements count: %d\n"
 msgstr "Ilość elementów zmiennej: %d\n"
-
