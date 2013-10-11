@@ -1,10 +1,10 @@
 #!/bin/bash
 
-#title          :ls-core
+#title          :lslib-core
 #description    :core library for LS scripts 
 #author         :Łukasz A. Grabowski <www@lucas.net.pl>
 #date           :20130928
-#version        :1.0
+#version        :1.0.3
 #notes          : 
 #bash_version   :4.2.37(1)-release
 #copywrite      :Copyright (C) 2013 Łukasz A. Grabowski
@@ -29,8 +29,8 @@
 # Configuration #
 #################
 
-PACD="/usr/share/ls"
-LIBD="lib"
+PACD="/usr/share/ls" #main directory for LS scripts
+LIBD="lib"           #library dir for LS scripts
 
 #######################
 # Predefined and init #
