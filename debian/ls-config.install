@@ -1,0 +1,3 @@
+ls-config usr/share/ls/lib/
+lslib-core usr/share/ls/lib/
+src/locale/* usr/share/locale/

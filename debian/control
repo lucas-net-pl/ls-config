@@ -1,6 +1,6 @@
 Source: ls-config
-Section: unknown
-Priority: extra
+Section: main
+Priority: standard
 Maintainer: Łukasz A. Grabowski <www@lucas.net.pl>
 Build-Depends: debhelper (>= 8.0.0), libconfig9
 Standards-Version: 3.9.3
