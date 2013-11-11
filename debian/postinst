@@ -20,6 +20,9 @@ set -e
 
 case "$1" in
     configure)
+	if [ ! -e "/etc/ls" ]; then
+	    mkdir -p "/etc/ls/"
+	fi;
     ;;
 
     abort-upgrade|abort-remove|abort-deconfigure)
