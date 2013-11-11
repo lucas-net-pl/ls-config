@@ -9,6 +9,7 @@ ls-config \- program to use libconfig9 configuration files in bash scripts
 
 ..SH SYNOPSIS
 .B ls-config
+[\fB\-f\fR \fIFILE\fR]
 .RI [ options ]
 .br
 
@@ -26,8 +27,55 @@ both parameter (-g and -s) nedd to give it variable path
 (internal configuration variable path)
 
 .SH OPTIONS
-.IP \fB\-OPTION\fP
-This option...
+.TP
+.BR \-f ", " \-\-file =\fIFILE\fR
+Configuration file to handle.
+.TP
+.BR \-s ", " \-\-set =\fIPATH\fR
+Set configuration variable of given path.
+.TP
+.BR \-d ", " \-\-data =\fIDATA\fR
+Configuration variable value (only with -s)
+.TP
+.BR \-p ", " \-\-type =\fITYPE\fR
+Configuration value type
+.TP
+.BR \-g ", " \-\-get =\fIPATH\fR
+Get configuration variable of given path.
+.TP
+.BR \-n ", " \-\-names
+Printout variables names.
+.TP
+.BR \-t ", " \-\-types
+ Printout variables types.
+.TP
+.BR \-v ", " \-\-values
+Printout variables values.
+.TP
+.BR \-i ", " \-\-indexes
+Printout variables indexes.
+.TP
+.BR \-c ", " \-\-count
+Printout elements count (only: array, list, group).
+.TP
+.BR \-b ", " \-\-bool\-string
+Printout boolean variables as text.
+.TP
+.BR \-q ", " \-\-quiet
+ Quiet output to use in scripts.
+.TP
+.BR \-h ", " \-\-help 
+Print this help message.
+.TP 
+Variable \fITYPE\fRs:
+ group  - variables group,
+ array  - array of variables,
+ list   - list of variables,
+ int    - integer number,
+ int64  - 64bit integer number,
+ float  - float point number,
+ bool   - boolean value,
+ string - character string.
 
 .SH NOTES
 
